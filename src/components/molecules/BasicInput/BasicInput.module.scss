@@ -1,0 +1,14 @@
+@import '../../../styles/variables.scss';
+
+.BasicInputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.BasicInput {
+    border: 0;
+    box-shadow: $shadow;
+    border-radius: $radius;
+    padding: 8px;
+}

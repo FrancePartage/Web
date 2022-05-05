@@ -1,0 +1,11 @@
+.Avatar {
+	margin: 16px auto;
+	position: relative;
+	width: 150px;
+	height: 150px;
+	cursor: pointer;
+
+	.Image {
+		border-radius: 9999px;
+	}
+}

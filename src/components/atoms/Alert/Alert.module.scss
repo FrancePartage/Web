@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.Alert {
+    border-radius: $radius;
+    border: 1px solid $red-700;
+    padding: 8px 16px;
+}
+
+.Error {
+    background: $red-100;
+    color: $red-600;
+    border-color: $red-600;
+}
+
+.Success {
+    background: $green-100;
+    color: $green-600;
+    border-color: $green-600;
+}

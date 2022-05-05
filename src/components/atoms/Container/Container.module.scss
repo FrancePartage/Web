@@ -1,0 +1,14 @@
+@import '../../../styles/mixins.scss';
+
+.Container {
+  margin: 0 auto;
+  width: 95%;
+
+  @include breakpoint(laptop) {
+    width: 900px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 1170px;
+  }
+}

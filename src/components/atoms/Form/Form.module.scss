@@ -1,0 +1,12 @@
+@import '../../../styles/mixins.scss';
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 90%;
+
+    @include breakpoint(tablet) {
+        width: 20rem;
+    }
+}

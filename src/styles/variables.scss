@@ -1,0 +1,43 @@
+$font: 'Ubuntu',
+sans-serif;
+$shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+$radius: 4px;
+
+$background: #EDF2F6;
+
+$dark-900: #132028;
+$dark-800: #1D2F38;
+$dark-700: #495057;
+$dark-600: #B7B9CC;
+$dark-500: #EBF2FF;
+
+$red-900: #2c0b0e;
+$red-800: #58151c;
+$red-700: #842029;
+$red-600: #b02a37;
+$red-500: #dc3545;
+$red-400: #e35d6a;
+$red-300: #ea868f;
+$red-200: #f1aeb5;
+$red-100: #f8d7da;
+
+$green-900: #051b11;
+$green-800: #0a3622;
+$green-700: #0f5132;
+$green-600: #146c43;
+$green-500: #198754;
+$green-400: #479f76;
+$green-300: #75b798;
+$green-200: #a3cfbb;
+$green-100: #d1e7dd;
+
+$orange-600: #ca8a04;
+$orange-200: #fef08a;
+
+$white: #FFFFFF;
+$blue: #007BFF;
+$cyan: #00C9E4;
+
+$light-blue: #EBF2FF;
+
+$gradient-blue-cyan: linear-gradient(90deg, rgba(0, 123, 255, 1) 0%, rgba(0, 201, 228, 1) 100%);

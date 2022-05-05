@@ -1,0 +1,24 @@
+.RightColumn {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.AddResource {
+	display: flex;
+	justify-content: right;
+	margin-bottom: 16px;
+}
+
+.Feed {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.LoadMore {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 16px;
+}

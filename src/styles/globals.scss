@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap');
+@import 'variables.scss';
+
+body {
+	background: $background;
+	font-family: $font;
+}
+
+body,
+#__next {
+	height: 100vh;
+}
+
+a {
+	color: $blue;
+	text-decoration: none;
+	transition: .2s;
+
+	&:hover {
+		color: $cyan;
+	}
+}
+
+.v-flex {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+
+table {
+	width: 100%;
+	border-radius: $radius;
+
+	thead {
+		tr {
+			background: $dark-700;
+			color: $white;
+		}
+	}
+
+	thead,
+	tbody {
+		tr {
+			border-radius: $radius;
+			display: flex;
+			justify-content: space-between;
+
+			&:nth-child(2n) {
+				background: $dark-500;
+			}
+		}
+	}
+
+	tbody {
+		font-size: 14px;
+
+		tr {
+			padding: 4px 0;
+		}
+	}
+
+	th {
+		padding: 16px 0;
+	}
+
+	td,
+	th {
+		display: flex;
+		align-items: center;
+		justify-content: left;
+		gap: 8px;
+
+		&:first-child {
+			padding-left: 16px;
+		}
+
+		&:last-child {
+			padding-right: 16px;
+		}
+	}
+}

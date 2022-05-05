@@ -1,0 +1,61 @@
+@import '../../../styles/variables.scss';
+
+.Button {
+	background: $gradient-blue-cyan;
+	color: $white;
+	border: 0;
+	padding: 8px;
+	border-radius: $radius;
+	transition: .2s;
+	cursor: pointer;
+	text-align: center;
+
+	svg {
+		width: 32px;
+		height: 24px;
+	}
+
+	&:hover {
+		opacity: .8;
+		color: $white;
+	}
+}
+
+.Light {
+	background: $light-blue;
+	color: $blue;
+
+	svg {
+		color: $blue;
+	}
+
+	&:hover {
+		color: $blue;
+	}
+}
+
+.Red {
+	background: $red-200;
+	color: $red-600;
+
+	svg {
+		color: $red-600;
+	}
+
+	&:hover {
+		color: $red-600;
+	}
+}
+
+.Orange {
+	background: $orange-200;
+	color: $orange-600;
+
+	svg {
+		color: $orange-600;
+	}
+
+	&:hover {
+		color: $orange-600;
+	}
+}

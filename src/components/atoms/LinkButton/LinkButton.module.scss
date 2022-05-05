@@ -1,0 +1,17 @@
+@import '../../../styles/variables.scss';
+
+.LinkButton {
+  background: $gradient-blue-cyan;
+  color: $white;
+  border: 0;
+  padding: 8px;
+  border-radius: $radius;
+  transition: .2s;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    opacity: .8;
+    color: $white;
+  }
+}
