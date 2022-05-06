@@ -1,0 +1,48 @@
+@import '../../../styles/variables.scss';
+
+.Dropdown {
+  position: absolute;
+  display: none;
+  background: $white;
+  top: 50px;
+  right: 0;
+  padding: 24px 24px;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  z-index: 999;
+
+  li {
+    font-size: 16px;
+
+    a {
+      display: flex;
+      color: $dark-800;
+      word-break: keep-all;
+      width: 150px;
+
+      &:hover {
+        color: $cyan;
+      }
+
+      span {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+      }
+    }
+
+    button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+
+  li:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+.Open {
+  display: block;
+}

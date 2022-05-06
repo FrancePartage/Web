@@ -1,9 +1,11 @@
-import { UserRole } from '@/enums/roles';
 import { isAuthenticated } from '@/utils/auth';
 import type { NextPage } from 'next';
 
+type ProfilePageProps = {
+	user?: any;
+}
 
-const ProfilePage: NextPage = ({ user }) => {
+const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
   return (
     <div>
 			Profile
@@ -16,7 +18,7 @@ const ProfilePage: NextPage = ({ user }) => {
 }
 
 ProfilePage.getInitialProps = async (ctx) => {
-	return isAuthenticated(ctx, [UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.CITIZEN]);
+	return isAuthenticated(ctx);
 }
 
 export default ProfilePage;

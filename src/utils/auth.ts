@@ -1,11 +1,22 @@
 import { NextPageContext } from "next";
 import nextCookie from 'next-cookies';
-import { Router } from 'next/router';
+import Router from 'next/router';
 import Cookies from 'cookies';
 import { me, refreshTokens } from '@/packages/api/auth';
 import { UserRole } from "@/enums/roles";
 
-const redirectOnError = (ctx: NextPageContext) => typeof window !== "undefined" ? Router.push("/") : ctx.res.writeHead(302, { Location: "/" }).end();
+const redirectOnError = (ctx: NextPageContext) => { 
+	const cookies = new Cookies(ctx.req, ctx.res);
+
+	cookies.set('accessToken', '', { maxAge: -1 });
+	cookies.set('refreshToken', '', { maxAge: -1 });
+
+	if (typeof window !== "undefined") {
+		Router.push("/")
+	} else {
+		ctx.res!.writeHead(302, { Location: "/" }).end();
+	}  
+}
 
 export const isAuthenticated = async (ctx: NextPageContext) => {
 	const cookies = new Cookies(ctx.req, ctx.res);

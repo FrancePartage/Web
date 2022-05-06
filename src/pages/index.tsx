@@ -1,11 +1,19 @@
+import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
+import ThreeColumnLayout from '@/components/templates/ThreeColumnLayout/ThreeColumnLayout';
 import { isMaybeAuthentificated } from '@/utils/auth';
 import type { NextPage } from 'next';
 
-const HomePage: NextPage = ({ user }) => {
+type HomePageProps = {
+	user?: any;
+}
+
+const HomePage: NextPage = ({ user }: HomePageProps) => {
   return (
-    <div>
-			{ user ? <h1>Hello {user.displayName}</h1> : <h1>Hello stranger</h1> }
-    </div>
+    <DefaultLayout user={user}>
+			<ThreeColumnLayout>
+				{ user ? <h1>Hello {user.displayName}</h1> : <h1>Hello stranger</h1> }
+			</ThreeColumnLayout>
+    </DefaultLayout>
   );
 }
 

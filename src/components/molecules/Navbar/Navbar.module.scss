@@ -1,0 +1,102 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+.NavBar {
+  background: $dark-800;
+  padding: 16px 0;
+  margin-bottom: 32px;
+}
+
+.Content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Right {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.Left {
+  display: flex;
+  align-items: center;
+}
+
+.AvatarContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1px solid $dark-700;
+}
+
+.Avatar {
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.BellLink {
+  position: relative;
+  width: 32px;
+  height: 32px;
+
+  .NewNotificationBadge {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: $cyan;
+    border-radius: 9999px;
+  }
+
+  .BellIcon {
+    color: $dark-500;
+    transition: .2s;
+
+    &:hover {
+      color: $dark-600;
+    }
+  }
+}
+
+.SearchInput {
+  outline: 0;
+  border-radius: $radius 0 0 $radius;
+  background: $dark-900;
+  color: $dark-600;
+  height: 40px;
+  border: 0;
+  padding: 0 16px;
+  margin-left: 16px;
+  min-width: 300px;
+
+  @include reverse-breakpoint(mobile) {
+    display: none;
+  }
+
+  &::placeholder {
+    color: $dark-700;
+  }
+}
+
+.SearchButton {
+  height: 40px;
+  width: 40px;
+  background: $dark-900;
+  border-radius: 0 $radius $radius 0;
+  border: 0;
+  color: $dark-700;
+  transition: .2s;
+  padding: 12px;
+  cursor: pointer;
+
+  @include reverse-breakpoint(mobile) {
+    margin-left: 16px;
+    border-radius: $radius;
+  }
+
+  &:hover {
+    color: $dark-600;
+  }
+}

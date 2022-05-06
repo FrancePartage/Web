@@ -1,16 +1,14 @@
 import NavBar from '@/components/molecules/Navbar/Navbar';
-import useUser from '@/packages/hooks/use-user';
 import Container from '@/components/atoms/Container/Container';
 import Footer from '@/components/molecules/Footer/Footer';
 import styles from './DefaultLayout.module.scss';
 
 type DefaultLayoutProps = {
-	children: React.ReactNode
+	children: React.ReactNode,
+	user?: any
 }
 
-const DefaultLayout = ({ children }: DefaultLayoutProps) => {
-	const user = useUser();
-
+const DefaultLayout = ({ children, user }: DefaultLayoutProps) => {
 	return (
 		<div className={styles.DefaultLayout}>
 			<NavBar user={ user }/>
