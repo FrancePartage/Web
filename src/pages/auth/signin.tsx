@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Alert from '@/components/atoms/Alert/Alert';
 import { setTokens, signIn } from '@/packages/api/auth';
+import { isNotAuthenticated } from '@/utils/auth';
 
 const LoginPage: NextPage = ()  => {
   const router = useRouter();
@@ -49,6 +50,10 @@ const LoginPage: NextPage = ()  => {
 			<Link href="/auth/signup"><a>Pas encore membre ?</a></Link>
 		</AuthLayout>
   );
+}
+
+LoginPage.getInitialProps = async (ctx) => {
+	return isNotAuthenticated(ctx);
 }
 
 export default LoginPage;
