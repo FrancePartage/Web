@@ -19,7 +19,8 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.30.0",
-    "sass": "^1.51.0"
+    "sass": "^1.51.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "17.0.31",

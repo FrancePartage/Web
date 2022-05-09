@@ -27,6 +27,32 @@ export const signIn = async (email: string, password: string) => {
 	return null;
 }
 
+export const signUp = async (email: string, username: string, firstname: string, lastname: string, password: string, acceptRgpd: boolean) => {
+	const requestUrl = getHost('auth/local/signup');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'POST',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email: email,
+				username: username,
+				firstname: firstname,
+				lastname: lastname,
+				password: password,
+				acceptRgpd: acceptRgpd
+			})
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
 export const me = async (accessToken: string) => {
 	try {
 		const requestUrl = getHost('auth/me');

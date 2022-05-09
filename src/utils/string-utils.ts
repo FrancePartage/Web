@@ -1,7 +1,9 @@
-export const randomGuid = (): string => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0,
-        v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+import { v4 as uuidv4 } from 'uuid';
+
+export const randomUid = (): string => {
+    return uuidv4();
+}
+
+export const isValidMail = (email: string) => {
+	return new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}').test(email);
 }

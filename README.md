@@ -12,3 +12,47 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - ```npm install```
 - ```npm run build```
 - ```npm run start```
+
+## Todo
+
+### Authentification
+
+- [x] Inscription
+- [x] Connexion
+- [x] Deconnexion
+- [X] Rafraichir les tokens
+ 
+ ### Utilisateurs
+
+ - [ ] Changer son avatar
+ - [ ] Changer son mot de passe
+ - [ ] Changer ses informations
+ - [ ] Consulter un utilisateur
+
+### Ressources
+
+- [ ] Afficher les ressources sur la page principale (infinite scroll)
+- [ ] Consulter une ressource
+- [ ] Like/Dislike une ressource
+- [ ] Afficher les commentaires d'une ressource (pagination)
+- [ ] Afficher les ressources d'un utilisateur
+
+### Relations
+
+- [ ] Envoyer une demande d'ajout de relation
+- [ ] Afficher les requetes reçues
+- [ ] Accepter/refuser une requete
+- [ ] Afficher les relations d'un utilisateur
+
+### Administration
+
+- [ ] Afficher les utilisateurs (pagination)
+- [ ] Changer le role d'un utilisateur
+- [ ] Bannir un utilisateur
+- [ ] Afficher les ressources (pagination)
+- [ ] Changer le statut d'une ressource
+
+### Bugs
+
+- [x] Corriger l'id différent entre le client et le serveru dans les forms lors du rechargement d'une page
+- [ ] Corriger le layout pour les pages de connexion et d'inscription

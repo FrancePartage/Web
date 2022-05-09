@@ -1,6 +1,5 @@
 import styles from './BasicInput.module.scss';
 import Label from '@/components/atoms/Label/Label';
-import { randomGuid } from "@/utils/string-utils";
 
 type BasicInputProps = {
 	type?: string,
@@ -11,7 +10,7 @@ type BasicInputProps = {
 
 const BasicInput = ({ type = 'text', label, disabled = false, formKey }: BasicInputProps) => {
 
-	const id = randomGuid();
+	const id = label ? label.replace(' ', '-') : 'input-id';
 
 	return (
 		<div className={ styles.BasicInputGroup }>

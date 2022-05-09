@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.CheckboxInputGroup {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	align-items: center;
+	
+	label {
+		font-size: 12px;
+	}
+}
+
+.CheckboxInput {
+	border: 0;
+	box-shadow: $shadow;
+	border-radius: $radius;
+	padding: 8px;
+}
