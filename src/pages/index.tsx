@@ -7,6 +7,9 @@ import RssCard from '@/components/molecules/RssCard/RssCard';
 import { useEffect, useState } from 'react';
 import { getSuggestions } from '@/packages/api/relations';
 import SuggestionsCard from '@/components/molecules/SuggestionCard/SuggestionsCard';
+import LinkButton from '@/components/atoms/LinkButton/LinkButton';
+import AuthCard from '@/components/molecules/AuthCard/AuthCard';
+import ProfileCard from '@/components/molecules/ProfileCard/ProfileCard';
 
 type HomePageProps = {
 	user?: any;
@@ -33,15 +36,19 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
     <DefaultLayout user={user}>
 			<ThreeColumnLayout>
 					<div>
-
+						{ user ? <ProfileCard user={ user }/> : <AuthCard/> }
 					</div>
 
 					<div>
-				
+						{ user &&
+							<div className={ styles.AddResource }>
+								<LinkButton href="/resources/add">Ajouter</LinkButton>
+							</div>
+						}
 					</div>
 
 					<div className={ styles.RightColumn }>
-						{ user && suggestions.length > 0 && <SuggestionsCard users={ suggestions }/> }
+						{ user && suggestions && suggestions.length > 0 && <SuggestionsCard users={ suggestions }/> }
 						<RssCard />
 					</div>
 			</ThreeColumnLayout>
