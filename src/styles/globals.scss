@@ -80,3 +80,35 @@ table {
 		}
 	}
 }
+
+.react-tagsinput {
+	border: 0 !important;
+	box-shadow: $shadow;
+	border-radius: $radius;
+}
+
+.react-tagsinput-tag {
+	background: $gradient-blue-cyan !important;
+	border: 0 !important;
+	color: #fff !important;
+	font-family: $font  !important;
+}
+
+.react-tagsinput-input {
+	font-family: $font !important;
+}
+
+.quill {
+	background: #fff !important;
+	box-shadow: $shadow !important;
+	border-radius: $radius;
+}
+
+.ql-toolbar.ql-snow {
+	border: 0 !important;
+	border-bottom: 1px solid #ccc !important;
+}
+
+.ql-container.ql-snow {
+	border: 0 !important;
+}

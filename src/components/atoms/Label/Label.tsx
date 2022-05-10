@@ -2,7 +2,7 @@ import styles from './Label.module.scss';
 
 type LabelProps = {
 	children: React.ReactNode
-	htmlFor: string
+	htmlFor?: string
 }
 
 const Label = ({ children, htmlFor }: LabelProps) => {

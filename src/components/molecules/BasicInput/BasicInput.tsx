@@ -15,7 +15,7 @@ const BasicInput = ({ type = 'text', label, disabled = false, formKey }: BasicIn
 	return (
 		<div className={ styles.BasicInputGroup }>
 			{ label && <Label htmlFor={ id }>{ label }</Label> }
-			<input { ...formKey } className={ styles.BasicInput } type={ type } id={ id } disabled={ disabled }/>
+			<input { ...formKey } className={ styles.BasicInput } type={ type === 'image' ? 'file' : type } id={ id } disabled={ disabled } accept={ type === 'image' ? 'image/png, image/jpeg' : null } />
 		</div>
 	);
 }

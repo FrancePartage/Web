@@ -39,7 +39,7 @@ const NavBar = ({ user }: NavBarProps) => {
 		items.push({
 			icon: <CogIcon/>,
 			label: 'Paramètres',
-			href: '/account'
+			href: '/profile'
 		});
 
 		if (user.role === UserRole.SUPER_ADMIN || user.role === UserRole.ADMIN || user.role === UserRole.MODERATOR) {

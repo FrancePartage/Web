@@ -8,8 +8,9 @@ import Form from '@/components/atoms/Form/Form';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Alert from '@/components/atoms/Alert/Alert';
-import { setTokens, signIn } from '@/packages/api/auth';
+import { signIn } from '@/packages/api/auth';
 import { isNotAuthenticated } from '@/utils/auth';
+import { setCookies } from 'cookies-next';
 
 const LoginPage: NextPage = ()  => {
   const router = useRouter();
@@ -32,7 +33,8 @@ const LoginPage: NextPage = ()  => {
 			return;
 		}
 
-		setTokens(response.accessToken, response.refreshToken);
+		setCookies('accessToken', response.accessToken, { maxAge: 15 * 60 * 1000  });
+		setCookies('refreshToken', response.refreshToken, { maxAge: 60 * 60 * 24 * 15 * 1000 });
 
 		router.push('/');
   }

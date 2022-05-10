@@ -1,5 +1,5 @@
 import { getHost } from "@/utils/get-host";
-import cookie from 'js-cookie';
+import { setCookies } from "cookies-next";
 
 export const signIn = async (email: string, password: string) => {	
 	const requestUrl = getHost('auth/local/signin');
@@ -94,9 +94,4 @@ export const refreshTokens = async (refreshToken: string) => {
 		return null;
 	}
 	return null;
-}
-
-export const setTokens = (accessToken: string, refreshToken: string) => {
-		cookie.set('accessToken', accessToken, { expires: new Date(new Date().getTime() + 15 * 60 * 1000) });
-		cookie.set('refreshToken', refreshToken, { expires: 15 });
 }

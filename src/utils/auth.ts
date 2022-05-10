@@ -2,57 +2,49 @@ import { NextPageContext } from "next";
 import nextCookie from 'next-cookies';
 import Router from 'next/router';
 import Cookies from 'cookies';
-import { me, refreshTokens } from '@/packages/api/auth';
+import { me, refreshTokens, setTokens } from '@/packages/api/auth';
 import { UserRole } from "@/enums/roles";
+import { checkCookies, getCookies, removeCookies, setCookies } from "cookies-next";
 
 const redirectOnError = (ctx: NextPageContext) => { 
-	const cookies = new Cookies(ctx.req, ctx.res);
-
-	cookies.set('accessToken', '', { maxAge: -1 });
-	cookies.set('refreshToken', '', { maxAge: -1 });
+	deleteTokens(ctx);
 
 	if (typeof window !== "undefined") {
 		Router.push("/")
 	} else {
 		ctx.res!.writeHead(302, { Location: "/" }).end();
 	}  
+
+	return { user: null };
 }
 
 export const isAuthenticated = async (ctx: NextPageContext) => {
-	const cookies = new Cookies(ctx.req, ctx.res);
-	let { accessToken, refreshToken } = nextCookie(ctx);
-
 	try {
-		if (!accessToken) {
+		const tokens: Tokens = getTokens(ctx);
 
-			if (!refreshToken) {
+		if (!hasCookie('accessToken', ctx)) {
+			if (!hasCookie('refreshToken', ctx)) {
 				return await redirectOnError(ctx);
 			}
 
-			const tokens = await refreshTokens(refreshToken);
+			const newTokens = await refreshTokens(tokens.refreshToken);
 
-			if (!tokens) {
+			if (!newTokens) {
 				return await redirectOnError(ctx);
 			}
 			
-			accessToken = tokens.accessToken;
-			refreshToken = tokens.refreshToken;
+			tokens.accessToken = newTokens.accessToken;
+			tokens.refreshToken = newTokens.refreshToken;
 			
-			cookies.set('accessToken', accessToken, { maxAge: 15 * 60 * 1000 });
-			cookies.set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 15 * 1000 });
+			setCookie('accessToken', tokens.accessToken, 15 * 60 * 1000, ctx);
+			setCookie('refreshToken', tokens.refreshToken, 60 * 60 * 24 * 15 * 1000, ctx);
 		}
 
-    const response = await me(accessToken!);
+		const user = await getUser(tokens.accessToken);
 
-		if (!response) {
+		if (!user) {
 			return await redirectOnError(ctx);
-		}
-
-		if (response.status !== 200) {
-			return await redirectOnError(ctx);
-		}
-
-		const user = await response.json();
+		} 
 
 		return { user };
 	} catch (error) {
@@ -61,39 +53,32 @@ export const isAuthenticated = async (ctx: NextPageContext) => {
 }
 
 export const isMaybeAuthentificated = async (ctx: NextPageContext) => {
-	const cookies = new Cookies(ctx.req, ctx.res);
-	let { accessToken, refreshToken } = nextCookie(ctx);
+	try {
+		const tokens: Tokens = getTokens(ctx);
 
-	if (!accessToken && !refreshToken) {
-		return { user: null };
-	}
+		if (!hasCookie('accessToken', ctx)) {
+			if (!hasCookie('refreshToken', ctx)) {
+				return { user: null };
+			}
 
-		try {
-		if (!accessToken) {
-			const tokens = await refreshTokens(refreshToken!);
+			const newTokens = await refreshTokens(tokens.refreshToken);
 
-			if (!tokens) {
+			if (!newTokens) {
 				return { user: null };
 			}
 			
-			accessToken = tokens.accessToken;
-			refreshToken = tokens.refreshToken;
+			tokens.accessToken = newTokens.accessToken;
+			tokens.refreshToken = newTokens.refreshToken;
 			
-			cookies.set('accessToken', accessToken, { maxAge: 15 * 60 * 1000 });
-			cookies.set('refreshToken', refreshToken, { maxAge: 60 * 60 * 24 * 15 * 1000 });
+			setCookie('accessToken', tokens.accessToken, 15 * 60 * 1000, ctx);
+			setCookie('refreshToken', tokens.refreshToken, 60 * 60 * 24 * 15 * 1000, ctx);
 		}
 
-    const response = await me(accessToken!);
+		const user = await getUser(tokens.accessToken);
 
-		if (!response) {
+		if (!user) {
 			return { user: null };
-		}
-
-		if (response.status !== 200) {
-			return { user: null };
-		}
-
-		const user = await response.json();
+		} 
 
 		return { user };
 	} catch (error) {
@@ -115,12 +100,87 @@ export const isAuthenticatedWithRole = async (ctx: NextPageContext, roles: UserR
 	return { user };
 }
 
-export const isNotAuthenticated = async (ctx: NextPageContext) => {
-	let { accessToken, refreshToken } = nextCookie(ctx);
-  
-	if (accessToken || refreshToken) {
+export const isNotAuthenticated = async (ctx: NextPageContext) => {  
+	if (hasCookie('accessToken', ctx) || hasCookie('refreshToken', ctx)) {
 		return await redirectOnError(ctx);
 	}
 
 	return {};
+}
+
+const getUser = async (accessToken: string) => {
+	try {
+		const response = await me(accessToken);
+
+		if (!response || response.status !== 200) {
+			return null;
+		}
+
+		const user = await response.json();
+		return user;
+	} catch (error) {
+		return null;
+	}
+}
+
+const getTokens = (ctx: NextPageContext): Tokens => {
+	const { req, res } = ctx;
+
+	const isServer = !!ctx.req;
+
+	let cookies;
+
+	if (isServer) {
+		cookies = getCookies({ req, res });
+	} else {
+		cookies = getCookies();
+	}
+
+	return {
+		accessToken: cookies.accessToken,
+		refreshToken: cookies.refreshToken
+	};
+}
+
+export const deleteTokens = (ctx: NextPageContext) => {
+	const { req, res } = ctx;
+
+	const isServer = !!ctx.req;
+
+	if (isServer) {
+		removeCookies('accessToken', { req, res });
+		removeCookies('refreshToken', { req, res });
+	} else {
+		removeCookies('accessToken');
+		removeCookies('refreshToken');
+	}
+}
+
+const setCookie = (cookie: string, value: string, age: number, ctx: NextPageContext) => {
+	const { req, res } = ctx;
+
+	const isServer = !!ctx.req;
+
+	if (isServer) {
+		setCookies(cookie, value, { req, res, maxAge: age });
+	} else {
+		setCookies(cookie, value, { maxAge: age });
+	}
+}
+
+const hasCookie = (cookie: string, ctx: NextPageContext): boolean => {
+	const { req, res } = ctx;
+
+	const isServer = !!ctx.req;
+
+	if (isServer) {
+		return checkCookies(cookie, { req, res });
+	} else {
+		return checkCookies(cookie);
+	}
+}
+
+type Tokens = {
+	accessToken: string;
+	refreshToken: string;
 }
