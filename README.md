@@ -36,7 +36,8 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 
 ### Ressources
 
-- [ ] Ajouter une ressource
+- [x] Ajouter une ressource
+- [x] Systeme d'upload d'image dans Quill
 - [ ] Afficher les ressources sur la page principale (infinite scroll)
 - [ ] Consulter une ressource
 - [ ] Like/Dislike une ressource
@@ -63,3 +64,4 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 
 - [x] Corriger l'id différent entre le client et le serveru dans les forms lors du rechargement d'une page
 - [ ] Corriger le layout pour les pages de connexion et d'inscription
+- [x] Probleme d'insertion de contenu dans l'input Quill dans l'ajout d'une ressource

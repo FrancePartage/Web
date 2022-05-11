@@ -1,5 +1,4 @@
 import { getHost } from "@/utils/get-host";
-import { setCookies } from "cookies-next";
 
 export const signIn = async (email: string, password: string) => {	
 	const requestUrl = getHost('auth/local/signin');

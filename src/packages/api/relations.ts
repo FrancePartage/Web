@@ -1,10 +1,9 @@
 import { getHost } from "@/utils/get-host";
-import Cookies from 'js-cookie';
+import { getCookie } from "cookies-next";
 
 export const getSuggestions = async () => {
 	const requestUrl = getHost('relations/suggestions');
-
-	const accessToken = Cookies.get('accessToken');
+	const accessToken = getCookie('accessToken');
 
 	try {
 		const response: any = await fetch(requestUrl, {

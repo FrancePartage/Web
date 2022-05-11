@@ -17,7 +17,30 @@ export const addResource = async (title: string, cover: File, tags: Array<string
 			method: 'POST',
 			headers: {
 				'Accept': '*/*',
-				'Content-Type': 'multipart/form-data',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: formData
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
+export const uploadImage = async (image: File) => {
+	const requestUrl = getHost('resources/image');
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const formData = new FormData();
+		
+		formData.append('image', image);
+
+		const response: any = await fetch(requestUrl, {
+			method: 'POST',
+			headers: {
+				'Accept': '*/*',
 				'Authorization': `Bearer ${accessToken}`
 			},
 			body: formData

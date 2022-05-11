@@ -6,8 +6,8 @@ const AuthCard = () => {
   return (
 	<Card>
 	  <div className={styles.AuthCard}>
-			<LinkButton href="/auth/register">S'inscrire</LinkButton>
-			<LinkButton href="/auth/login">Se connecter</LinkButton>
+			<LinkButton href="/auth/signup">S'inscrire</LinkButton>
+			<LinkButton href="/auth/signin">Se connecter</LinkButton>
 	  </div>
 	</Card>
   );
