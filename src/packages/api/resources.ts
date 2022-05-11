@@ -51,3 +51,21 @@ export const uploadImage = async (image: File) => {
 		return null;
 	}
 }
+
+export const getResources = async (page: number) => {
+	const requestUrl = `${getHost('resources')}?page=${page}`;
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+			}
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}

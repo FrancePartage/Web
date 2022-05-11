@@ -10,6 +10,9 @@ import SuggestionsCard from '@/components/molecules/SuggestionCard/SuggestionsCa
 import LinkButton from '@/components/atoms/LinkButton/LinkButton';
 import AuthCard from '@/components/molecules/AuthCard/AuthCard';
 import ProfileCard from '@/components/molecules/ProfileCard/ProfileCard';
+import Button from '@/components/atoms/Button/Button';
+import { getResources } from '@/packages/api/resources';
+import FeedResourceCard from '@/components/molecules/FeedResourceCard/FeedResourceCard';
 
 type HomePageProps = {
 	user?: any;
@@ -17,6 +20,9 @@ type HomePageProps = {
 
 const HomePage: NextPage = ({ user }: HomePageProps) => {
 	const [suggestions, setSuggestions] = useState([]);
+	const [resources, setResources] = useState([]);
+	const [page, setPage] = useState(1);
+	const [hasNextPage, setHasNextPage] = useState(false);
 
 	useEffect(() => {
 		if (user) {
@@ -32,6 +38,29 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
 		}
 	}, [user]);
 
+	useEffect(() => {
+		const foo = async () => {
+			const remoteResources = await getResources(page);
+			const _resources = [...resources];
+
+			if (remoteResources) {
+				remoteResources.data.map((resource: any) => {
+					_resources.push(resource);
+				});
+
+				setResources(_resources);
+				setHasNextPage(remoteResources.pagination.hasNextPage);
+			}
+		}
+
+		foo();
+	}, [page]);
+
+	const handleLoadMore = () => {
+		if (hasNextPage)
+			setPage(page + 1);
+	}
+
   return (
     <DefaultLayout user={user}>
 			<ThreeColumnLayout>
@@ -43,6 +72,20 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
 						{ user &&
 							<div className={ styles.AddResource }>
 								<LinkButton href="/resources/add">Ajouter</LinkButton>
+							</div>
+						}
+
+						<div className={ styles.Feed }>
+							{
+								resources.map((resource, index) => {
+									return <FeedResourceCard resource={resource} key={index} />
+								})
+							}
+						</div>
+
+						{
+							hasNextPage && <div className={ styles.LoadMore }>
+								<Button onClick={ handleLoadMore }>Charger plus</Button>
 							</div>
 						}
 					</div>

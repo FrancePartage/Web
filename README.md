@@ -19,7 +19,7 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 
 - [ ] Rechercher des ressources
 - [ ] Rechercher des relations
-
+- [ ] Tags populaires
 ### Authentification
 
 - [x] Inscription
@@ -38,11 +38,13 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 
 - [x] Ajouter une ressource
 - [x] Systeme d'upload d'image dans Quill
-- [ ] Afficher les ressources sur la page principale (infinite scroll)
+- [x] Afficher les ressources sur la page principale (infinite scroll)
 - [ ] Consulter une ressource
 - [ ] Like/Dislike une ressource
 - [ ] Afficher les commentaires d'une ressource (pagination)
+- [ ] Ajouter une commentaire
 - [ ] Afficher les ressources d'un utilisateur
+- [ ] Consulter les ressources par tags
 
 ### Relations
 
