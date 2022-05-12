@@ -11,8 +11,9 @@ import LinkButton from '@/components/atoms/LinkButton/LinkButton';
 import AuthCard from '@/components/molecules/AuthCard/AuthCard';
 import ProfileCard from '@/components/molecules/ProfileCard/ProfileCard';
 import Button from '@/components/atoms/Button/Button';
-import { getResources } from '@/packages/api/resources';
+import { getPopularTags, getResources } from '@/packages/api/resources';
 import FeedResourceCard from '@/components/molecules/FeedResourceCard/FeedResourceCard';
+import PopularTagsCard from '@/components/molecules/PopularTagsCard/PopularTagsCard';
 
 type HomePageProps = {
 	user?: any;
@@ -21,6 +22,7 @@ type HomePageProps = {
 const HomePage: NextPage = ({ user }: HomePageProps) => {
 	const [suggestions, setSuggestions] = useState([]);
 	const [resources, setResources] = useState([]);
+	const [tags, setTags] = useState([]);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
 
@@ -55,6 +57,15 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
 
 		foo();
 	}, [page]);
+
+	useEffect(() => {
+		const foo = async () => {
+			const tags = await getPopularTags();
+			setTags(tags);
+		}
+
+		foo();
+	}, []);
 
 	const handleLoadMore = () => {
 		if (hasNextPage)
@@ -92,6 +103,7 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
 
 					<div className={ styles.RightColumn }>
 						{ user && suggestions && suggestions.length > 0 && <SuggestionsCard users={ suggestions }/> }
+						<PopularTagsCard tags={tags} />
 						<RssCard />
 					</div>
 			</ThreeColumnLayout>

@@ -19,7 +19,7 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 
 - [ ] Rechercher des ressources
 - [ ] Rechercher des relations
-- [ ] Tags populaires
+- [x] Tags populaires
 ### Authentification
 
 - [x] Inscription

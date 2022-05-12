@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+.PopularTagsCard {
+	display: flex;
+	gap: 8px;
+
+	.Tag {
+		background: $gradient-blue-cyan  !important;
+		border: 0 !important;
+		color: #fff !important;
+		font-family: $font  !important;
+		padding: 4px;
+		border-radius: $radius;
+		font-size: 14px;
+	}
+}
