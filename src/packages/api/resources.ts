@@ -70,6 +70,24 @@ export const getResources = async (page: number) => {
 	}
 }
 
+export const getResourcesByTag = async (tag: any, page: number) => {
+	const requestUrl = `${getHost(`resources/tags/${tag}`)}?page=${page}`;
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+			}
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
 export const getPopularTags = async () => {
 	const requestUrl = getHost('resources/tags');
 

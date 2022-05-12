@@ -44,7 +44,7 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [ ] Afficher les commentaires d'une ressource (pagination)
 - [ ] Ajouter une commentaire
 - [ ] Afficher les ressources d'un utilisateur
-- [ ] Consulter les ressources par tags
+- [x] Consulter les ressources par tags
 
 ### Relations
 
