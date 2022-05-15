@@ -1,0 +1,103 @@
+@import '../../../styles/variables.scss';
+
+.Header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid $dark-500;
+	margin-bottom: 16px;
+	cursor: pointer;
+	color: $dark-900;
+
+	.Left {
+		display: flex;
+		gap: 16px;
+		align-items: center;
+
+		p {
+			font-weight: 500;
+		}
+	}
+
+	.Right {
+		display: flex;
+		align-items: center;
+
+		p {
+			font-size: 14px;
+			color: $blue;
+		}
+	}
+
+	.Avatar {
+		margin: 16px auto;
+		position: relative;
+		width: 40px;
+		height: 40px;
+
+		.Image {
+			border-radius: 9999px;
+		}
+	}
+}
+
+.Content {
+	color: $dark-900;
+}
+
+.Cover {
+	width: 100%;
+	height: 250px;
+	background-size: cover;
+	background-position: center;
+	border-radius: $radius;
+	margin-bottom: 16px;
+}
+
+.Tags {
+	margin: 16px 0 16px 0;
+	display: flex;
+	gap: 8px;
+
+	.Tag {
+		background: $gradient-blue-cyan;
+		color: $white;
+		padding: 4px;
+		border-radius: $radius;
+		font-size: 12px;
+	}
+}
+
+.Footer {
+	border-top: 1px solid $dark-500;
+	margin-top: 16px;
+	padding-top: 16px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+
+	.Action {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 14px;
+		color: $dark-900;
+		cursor: pointer;
+		transition: .2s;
+		
+		&:hover {
+			color: $dark-700;
+		}
+	}
+
+	.Like {
+		width: 24px;
+	}
+}
+
+.HtmlContent {
+	img {
+		border-radius: $radius;
+		max-width: 100%;
+	}
+}

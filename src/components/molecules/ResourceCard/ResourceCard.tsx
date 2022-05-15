@@ -1,4 +1,4 @@
-import styles from './FeedResourceCard.module.scss';
+import styles from './ResourceCard.module.scss';
 import Card from '@/components/atoms/Card/Card';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,11 +7,11 @@ import { timeSince } from '@/utils/date-utils';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { HeartIcon } from '@heroicons/react/outline';
 
-type FeedResourceCardProps = {
+type ResourceCardProps = {
 	resource: any;
 }
 
-const FeedResourceCard = ({ resource }: FeedResourceCardProps) => {
+const ResourceCard = ({ resource }: ResourceCardProps) => {
 
 	const dateTime = new Date(resource.createdAt);
 
@@ -37,23 +37,21 @@ const FeedResourceCard = ({ resource }: FeedResourceCardProps) => {
 			</Link>
 
 			<div className={styles.Content}>
-				<Link href={`/resources/${resource.id}`}>
-					<a>
-						<Heading2>{ resource.title }</Heading2>
-						
-						<div className={styles.Tags}>
-							{ 
-								resource.tags.map((tag: any, index: number) => {
-									return (
-										<div className={styles.Tag} key={index}>{tag}</div>
-									);
-								})
-							}
-						</div>
-						
-						<div className={styles.Cover} style={coverStyle}></div>
-					</a>
-				</Link>
+				<Heading2>{ resource.title }</Heading2>
+				
+				<div className={styles.Tags}>
+					{ 
+						resource.tags.map((tag: any, index: number) => {
+							return (
+								<div className={styles.Tag} key={index}>{tag}</div>
+							);
+						})
+					}
+				</div>
+				
+				{ /* <div className={styles.Cover} style={coverStyle}></div> */ }
+
+				<div className={styles.HtmlContent} dangerouslySetInnerHTML={{ __html: resource.content }}></div>
 			</div>
 
 			<div className={styles.Footer}>
@@ -66,4 +64,4 @@ const FeedResourceCard = ({ resource }: FeedResourceCardProps) => {
 	);
 }
 
-export default FeedResourceCard;
+export default ResourceCard;

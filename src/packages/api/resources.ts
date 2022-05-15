@@ -105,3 +105,21 @@ export const getPopularTags = async () => {
 		return [];
 	}
 }
+
+export const getResource = async (id: number) => {
+	const requestUrl = `${getHost('resources/first')}/${id}`;
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+			}
+		});
+		
+		return (await response.json()).data;
+	} catch (error) {
+		return null;
+	}
+}
