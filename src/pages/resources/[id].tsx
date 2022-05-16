@@ -4,13 +4,14 @@ import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import { isMaybeAuthentificated } from '@/utils/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getResource } from '@/packages/api/resources';
+import { addComment, getResource } from '@/packages/api/resources';
 import ResourceCard from '@/components/molecules/ResourceCard/ResourceCard';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { useForm } from 'react-hook-form';
 import Form from '@/components/atoms/Form/Form';
 import FormButton from '@/components/atoms/FormButton/FormButton';
 import TextAreaInput from '@/components/molecules/TextAreaInput/TextAreaInput';
+import Alert from '@/components/atoms/Alert/Alert';
 
 type ResourcePageProps = {
 	user?: any;
@@ -21,7 +22,8 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 	const { id } = router.query;
 	const [resource, setResource] = useState(null);
 	const [comments, setComments] = useState([]);
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, reset } = useForm();
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		setResource(null);
@@ -41,7 +43,18 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 	}, [id])
 
 	const onSubmit = async (data: any) => {
+		setError('');
 
+		if (data.comment === '') {
+			setError('Vous devez remplir le champ commentaire');
+			return;
+		}
+
+		const response = await addComment(id, data.comment);
+
+		console.log(response);
+
+		reset();
   }
 
 	return (
@@ -60,6 +73,8 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 					user &&
 						<div>
 							<Heading2>Ajouter un commentaire</Heading2>
+
+							{ error !== '' && <Alert text={error} /> }
 
 							<Form onSubmit={handleSubmit(onSubmit)}>
 								<TextAreaInput formKey={register("comment")} label="Commentaire" />

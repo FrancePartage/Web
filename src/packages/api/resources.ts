@@ -133,6 +133,7 @@ export const addComment = async (resourceId: number, content: string) => {
 			method: 'POST',
 			headers: {
 				'Accept': '*/*',
+				'Content-Type': 'application/json',
 				'Authorization': `Bearer ${accessToken}`
 			},
 			body: JSON.stringify({
