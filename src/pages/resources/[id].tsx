@@ -4,7 +4,7 @@ import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import { isMaybeAuthentificated } from '@/utils/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { addComment, getResource } from '@/packages/api/resources';
+import { addComment, getComments, getResource } from '@/packages/api/resources';
 import ResourceCard from '@/components/molecules/ResourceCard/ResourceCard';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,8 @@ import Form from '@/components/atoms/Form/Form';
 import FormButton from '@/components/atoms/FormButton/FormButton';
 import TextAreaInput from '@/components/molecules/TextAreaInput/TextAreaInput';
 import Alert from '@/components/atoms/Alert/Alert';
+import CommentCard from '@/components/molecules/CommentCard/CommentCard';
+import Button from '@/components/atoms/Button/Button';
 
 type ResourcePageProps = {
 	user?: any;
@@ -22,6 +24,8 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 	const { id } = router.query;
 	const [resource, setResource] = useState(null);
 	const [comments, setComments] = useState([]);
+	const [commentsPage, setCommentsPage] = useState(1);
+	const [commentsHasNextPage, setCommentsHasNextPage] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
 	const [error, setError] = useState('');
 
@@ -42,6 +46,24 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 		foo();
 	}, [id])
 
+	useEffect(() => {
+		const foo = async () => {
+			const remoteComments = await getComments(id, commentsPage);
+			const _comments = [...comments];
+
+			if (remoteComments) {
+				remoteComments.data.map((comment: any) => {
+					_comments.push(comment);
+				});
+				
+				setComments(_comments);
+				setCommentsHasNextPage(remoteComments.pagination.hasNextPage);
+			}
+		}
+
+		foo();
+	}, [commentsPage]);
+
 	const onSubmit = async (data: any) => {
 		setError('');
 
@@ -51,11 +73,20 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 		}
 
 		const response = await addComment(id, data.comment);
-
-		console.log(response);
+		
+		if (response && !response.statusCode) {
+			const _comments = [...comments];
+			_comments.unshift(response);
+			setComments(_comments);
+		}
 
 		reset();
   }
+
+	const handleLoadMore = () => {
+		if (commentsHasNextPage)
+			setCommentsPage(commentsPage + 1);
+	}
 
 	return (
 		<DefaultLayout user={user}>
@@ -66,7 +97,21 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 					comments.length > 0 && 
 						<div>
 							<Heading2>Commentaires</Heading2>
+
+							<div className={styles.CommentsList}>
+								{ comments.map((comment, index) => {
+									return (
+										<CommentCard key={index} comment={comment} />
+									)
+								}) }
+							</div>
 						</div>
+				}
+
+				{
+					commentsHasNextPage && <div className={ styles.LoadMore }>
+						<Button onClick={ handleLoadMore }>Charger plus</Button>
+					</div>
 				}
 
 				{
@@ -74,7 +119,7 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 						<div>
 							<Heading2>Ajouter un commentaire</Heading2>
 
-							{ error !== '' && <Alert text={error} /> }
+							{ error !== '' && <><br/><Alert text={error} /></> }
 
 							<Form onSubmit={handleSubmit(onSubmit)}>
 								<TextAreaInput formKey={register("comment")} label="Commentaire" />

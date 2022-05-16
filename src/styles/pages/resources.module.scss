@@ -6,3 +6,19 @@
     width: 100%;
   }
 }
+
+.CommentsList {
+	margin-top: 32px;
+  margin-bottom: 32px;
+	display: flex;
+  flex-direction: column;
+	gap: 16px;
+}
+
+.LoadMore {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 16px;
+  margin-bottom: 16px;
+}

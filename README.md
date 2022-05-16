@@ -41,10 +41,11 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [x] Afficher les ressources sur la page principale (infinite scroll)
 - [x] Consulter une ressource
 - [ ] Like/Dislike une ressource
-- [ ] Afficher les commentaires d'une ressource (pagination)
+- [x] Afficher les commentaires d'une ressource (pagination)
 - [x] Ajouter une commentaire
 - [ ] Afficher les ressources d'un utilisateur
 - [x] Consulter les ressources par tags
+- [ ] Ajouter du CSS pour le contenu (H1, H2, etc.)
 
 ### Relations
 
