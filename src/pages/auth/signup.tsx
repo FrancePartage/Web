@@ -11,7 +11,8 @@ import { useRouter } from 'next/router';
 import { isNotAuthenticated } from '@/utils/auth';
 import { isValidMail } from '@/utils/string-utils';
 import CheckboxInput from '@/components/molecules/CheckbokInput/CheckboxInput';
-import { setTokens, signUp } from '@/packages/api/auth';
+import { signUp } from '@/packages/api/auth';
+import { setCookies } from 'cookies-next';
 
 const RegisterPage: NextPage = () => {
   const router = useRouter();
@@ -44,7 +45,9 @@ const RegisterPage: NextPage = () => {
 		const response = await signUp(data.email, data.username, data.firstName, data.lastName, data.password, data.acceptRgpd);
 
 		if (response.accessToken && response.refreshToken) {
-			setTokens(response.accessToken, response.refreshToken);
+			setCookies('accessToken', response.accessToken, { maxAge: 15 * 60 * 1000  });
+			setCookies('refreshToken', response.refreshToken, { maxAge: 60 * 60 * 24 * 15 * 1000 });
+
 			await router.push('/');
 		} else {
 			if (response.message) {
