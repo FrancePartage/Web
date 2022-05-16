@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+
+
+.TextAreaGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.TextArea {
+	border: 0;
+	box-shadow: $shadow;
+	border-radius: $radius;
+	padding: 8px;
+}
