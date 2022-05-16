@@ -123,3 +123,44 @@ export const getResource = async (id: number) => {
 		return null;
 	}
 }
+
+export const addComment = async (resourceId: number, content: string) => {
+	const requestUrl = getHost(`resources/first/${resourceId}/comments`);
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'POST',
+			headers: {
+				'Accept': '*/*',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: JSON.stringify({
+				content: content
+			})
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
+export const getComments = async (resourceId: number, page: number) => {
+	const requestUrl = `${getHost(`resources/first/${resourceId}/comments`)}?page=${page}`;
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+			}
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
