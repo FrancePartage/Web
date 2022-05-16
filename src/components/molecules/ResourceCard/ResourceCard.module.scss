@@ -61,10 +61,13 @@
 
 	.Tag {
 		background: $gradient-blue-cyan;
-		color: $white;
 		padding: 4px;
 		border-radius: $radius;
 		font-size: 12px;
+
+		a {
+			color: $white;
+		}
 	}
 }
 

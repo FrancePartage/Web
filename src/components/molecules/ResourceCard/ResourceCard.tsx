@@ -43,7 +43,7 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
 					{ 
 						resource.tags.map((tag: any, index: number) => {
 							return (
-								<div className={styles.Tag} key={index}>{tag}</div>
+								<div className={styles.Tag} key={index}><Link href={`/resources/tags/${tag}`}><a>{tag}</a></Link></div>
 							);
 						})
 					}
