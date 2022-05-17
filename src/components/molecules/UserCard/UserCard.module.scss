@@ -1,0 +1,55 @@
+@import '../../../styles/variables.scss';
+
+.Content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SubContent {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.Avatar {
+  margin: 16px auto;
+  position: relative;
+  width: 150px;
+  height: 150px;
+
+  .Image {
+    border-radius: 9999px;
+  }
+}
+
+.Information {
+  margin: 16px 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+
+  div {
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid $dark-500;
+    cursor: pointer;
+  }
+
+  div:first-child {
+    border-bottom: 1px solid $dark-500;
+  }
+
+  .Counter {
+    color: $dark-800;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .Label {
+    color: $dark-600;
+    font-size: 14px;
+  }
+}

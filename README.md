@@ -32,7 +32,9 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
  - [ ] Changer son avatar
  - [ ] Changer son mot de passe
  - [ ] Changer ses informations
- - [ ] Consulter un utilisateur
+ - [x] Consulter un utilisateur
+ - [ ] Consulter les ressources d'un utilisateur
+ - [ ] Consulter les relations d'un utilisateur
 
 ### Ressources
 
