@@ -45,7 +45,7 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [x] Ajouter une commentaire
 - [ ] Afficher les ressources d'un utilisateur
 - [x] Consulter les ressources par tags
-- [ ] Ajouter du CSS pour le contenu (H1, H2, etc.)
+- [x] Ajouter du CSS pour le contenu (H1, H2, etc.)
 
 ### Relations
 

@@ -15,10 +15,6 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
 
 	const dateTime = new Date(resource.createdAt);
 
-	const coverStyle = {
-		backgroundImage: 'url(' + resolveImage(`covers/${ resource.cover }`) + ')'
-	}
-
 	return (
 		<Card>
 			<Link href={ `/users/${resource.author.id}` }>

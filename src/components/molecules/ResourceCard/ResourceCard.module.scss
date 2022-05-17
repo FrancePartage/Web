@@ -103,4 +103,51 @@
 		border-radius: $radius;
 		width: 100%;
 	}
+
+	h1, h2 {
+		font-weight: 500;
+	}
+
+	h1 {
+		font-size: 24px;
+	}
+
+	h2 {
+		font-size: 20px;
+	}
+
+	span.ql-size-small {
+		font-size: 10px !important;
+	}
+
+	span.ql-size-large {
+		font-size: 16px !important;
+	}
+
+	span.ql-size-huge {
+		font-size: 18px !important;
+	}
+
+	strong {
+		font-weight: 500;
+	}
+
+	em {
+		font-style: italic;
+	}
+
+	blockquote {
+		border-left: 4px solid silver;
+		padding-left: 8px;
+	}
+
+	ol {
+		margin-left: 16px;
+		list-style: revert;
+	}
+
+	ul {
+		margin-left: 16px;
+		list-style: revert;
+	}
 }
