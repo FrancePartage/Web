@@ -2,10 +2,9 @@ import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import { isMaybeAuthentificated } from '@/utils/auth';
 import styles from '@/styles/pages/index.module.scss';
 import type { NextPage } from 'next';
-import { useCallback, useEffect, useState } from 'react';
-import LinkButton from '@/components/atoms/LinkButton/LinkButton';
+import { useEffect, useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
-import { getPopularTags, getResources, getResourcesByTag } from '@/packages/api/resources';
+import { getPopularTags, getResourcesByTag } from '@/packages/api/resources';
 import FeedResourceCard from '@/components/molecules/FeedResourceCard/FeedResourceCard';
 import { useRouter } from 'next/router';
 import Heading1 from '@/components/atoms/Heading1/Heading1';
@@ -25,7 +24,6 @@ const TagPage: NextPage = ({ user }: TagPageProps) => {
   const router = useRouter();
   const { tag } = router.query;
 
-	const [firstExecute, setFirstExecute] = useState(true);
 	const [suggestions, setSuggestions] = useState([]);
 	const [resources, setResources] = useState([]);
 	const [tags, setTags] = useState([]);
@@ -47,11 +45,6 @@ const TagPage: NextPage = ({ user }: TagPageProps) => {
 	}
 
 	useEffect(() => {
-		if (firstExecute) {
-			setFirstExecute(false);
-			return;
-		}
-
 		if (page !== 1) {
 			setResources([]);
 			setPage(1);
