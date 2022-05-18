@@ -35,3 +35,21 @@ export const getUserResources = async (userId: number, page: number) => {
 		return null;
 	}
 }
+
+export const getUserRelations = async (userId: number, page: number) => {
+	try {
+		const requestUrl = `${getHost(`users/${userId}/relations`)}?page=${page}`;
+
+		const response = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json'
+			}
+		});
+
+		return await response.json();
+	} catch(error) {
+		return null;
+	}
+}
