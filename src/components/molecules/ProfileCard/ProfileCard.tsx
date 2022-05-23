@@ -23,13 +23,13 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 	  <div className={styles.Information}>
 		  <Link href={`/users/${user.id}/relations`}>
 			  <div>
-				  <span className={ styles.Counter }>TODO</span>
+				  <span className={ styles.Counter }>{ user.relationsCount }</span>
 				  <span className={ styles.Label }>Relations</span>
 			  </div>
 		  </Link>
 		  <Link href={`/users/${user.id}`}>
 			  <div>
-				  <span className={ styles.Counter }>TODO</span>
+				  <span className={ styles.Counter }>{ user.resourcesCount }</span>
 				  <span className={ styles.Label }>Ressources</span>
 			  </div>
 		  </Link>

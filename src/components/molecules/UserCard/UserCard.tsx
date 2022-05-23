@@ -45,13 +45,13 @@ const UserCard = ({ selectedUser }: UserCardProps) => {
 				<div className={ styles.Information }>
 					<Link href={ `/users/${ selectedUser.id }/relations` }>
 						<div>
-							<span className={ styles.Counter }>TODO</span>
+							<span className={ styles.Counter }>{ selectedUser.relationsCount }</span>
 							<span className={ styles.Label }>Relations</span>
 						</div>
 					</Link>
 					<Link href={ `/users/${ selectedUser.id }` }>
 						<div>
-							<span className={ styles.Counter }>TODO</span>
+							<span className={ styles.Counter }>{ selectedUser.resourcesCount }</span>
 							<span className={ styles.Label }>Ressources</span>
 						</div>
 					</Link>
