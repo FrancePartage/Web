@@ -69,9 +69,10 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 			setPage(page + 1);
 	}
 
+
 	return (
 		<DefaultLayout user={user}>
-			{ selectedUser && <UserCard selectedUser={selectedUser} /> }
+			{ selectedUser && <UserCard user={user} selectedUser={selectedUser} /> }
 
 			<div>
 					<div className={ styles.Feed }>

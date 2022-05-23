@@ -3,8 +3,8 @@ import Link from 'next/link';
 import classNames from 'classnames';
 
 type DropdownItem = {
-	href: string;
-	icon: React.ReactNode;
+	href?: string;
+	icon?: React.ReactNode;
 	label: string;
 	onClick?: () => void;
 }

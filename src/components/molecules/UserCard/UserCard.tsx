@@ -3,17 +3,38 @@ import Card from '@/components/atoms/Card/Card';
 import Image from 'next/image';
 import Heading1 from '@/components/atoms/Heading1/Heading1';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { resolveImage } from '@/utils/images';
+import { getRelationWith } from '@/packages/api/relations';
+import RelationTrigger from '../RelationTrigger/RelationTrigger';
+import RemoveRelation from '../RemoveRelation/RemoveRelation';
 
 type UserCardProps = {
-	selectedUser: any
+	user: any;
+	selectedUser: any;
 }
 
-const UserCard = ({ selectedUser }: UserCardProps) => {
+const UserCard = ({ user, selectedUser }: UserCardProps) => {
 	const [showRelationTrigger, setShowRelationTrigger] = useState(false);
 	const [showRemoveRelation, setShowRemoveRelation] = useState(false);
 	const [active, setActive] = useState(true);
+
+	useEffect(() => {
+		const foo = async () => {
+			const relation = await getRelationWith(parseInt(selectedUser.id));
+
+			if (relation.data) {
+				setShowRemoveRelation(true);
+				setActive(relation.data.isAccepted);
+			} else {
+				setShowRelationTrigger(true);
+			}
+		}
+
+		if (user && user.id != selectedUser.id) {
+			foo();
+		}
+	}, [user, selectedUser])
 
 	const handleAdd = () => {
 		setShowRelationTrigger(false);
@@ -37,8 +58,8 @@ const UserCard = ({ selectedUser }: UserCardProps) => {
 
 					<Heading1>{ selectedUser.displayName }</Heading1>
 
-					{ /* showRelationTrigger && <RelationTrigger callback={ handleAdd } user={ selectedUser }/> */ }
-					{ /* showRemoveRelation && <RemoveRelation callback={ handleRemove } user={ selectedUser } active={active} /> */ }
+					{ showRelationTrigger && <RelationTrigger callback={ handleAdd } user={ selectedUser }/> }
+					{ showRemoveRelation && <RemoveRelation callback={ handleRemove } user={ selectedUser } active={active} /> }
 
 				</div>
 

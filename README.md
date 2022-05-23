@@ -45,16 +45,16 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [ ] Like/Dislike une ressource
 - [x] Afficher les commentaires d'une ressource (pagination)
 - [x] Ajouter une commentaire
-- [ ] Afficher les ressources d'un utilisateur
+- [x] Afficher les ressources d'un utilisateur
 - [x] Consulter les ressources par tags
 - [x] Ajouter du CSS pour le contenu (H1, H2, etc.)
 
 ### Relations
 
-- [ ] Envoyer une demande d'ajout de relation
+- [x] Envoyer une demande d'ajout de relation
 - [ ] Afficher les requetes reçues
 - [ ] Accepter/refuser une requete
-- [ ] Afficher les relations d'un utilisateur
+- [x] Afficher les relations d'un utilisateur
 - [x] Afficher les suggestions sur le feed
 
 ### Administration
