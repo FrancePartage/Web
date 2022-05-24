@@ -52,8 +52,10 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 ### Relations
 
 - [x] Envoyer une demande d'ajout de relation
-- [ ] Afficher les requetes reçues
-- [ ] Accepter/refuser une requete
+- [x] Afficher les requetes reçues
+- [ ] Accepter une requete
+- [ ] Refuser une requete
+- [ ] Annuler une requete
 - [x] Afficher les relations d'un utilisateur
 - [x] Afficher les suggestions sur le feed
 

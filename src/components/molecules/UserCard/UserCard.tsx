@@ -24,7 +24,12 @@ const UserCard = ({ user, selectedUser }: UserCardProps) => {
 			const relation = await getRelationWith(parseInt(selectedUser.id));
 
 			if (relation.data) {
-				setShowRemoveRelation(true);
+				if (!relation.data.isAccepted && relation.data.requestToId === parseInt(user.id)) {
+					setShowRelationTrigger(false);
+				} else {
+					setShowRemoveRelation(true);
+				}
+
 				setActive(relation.data.isAccepted);
 			} else {
 				setShowRelationTrigger(true);
