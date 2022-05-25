@@ -99,12 +99,14 @@ const NavBar = ({ user }: NavBarProps) => {
 					</div>
 
 					<div className={ styles.Right }>
-						<Link href="/notifications">
-							<a className={ styles.BellLink }>
-								{ user && user.requestsCount > 0 && <div className={ styles.NewNotificationBadge }/> }
-								<BellIcon className={ styles.BellIcon }/>
-							</a>
-						</Link>
+						{ user && 
+							<Link href="/notifications">
+								<a className={ styles.BellLink }>
+									{ user && user.requestsCount > 0 && <div className={ styles.NewNotificationBadge }/> }
+									<BellIcon className={ styles.BellIcon }/>
+								</a>
+							</Link> 
+						}
 
 						<div className={ styles.AvatarContainer }>
 							<Image src={ resolveImage(`avatars/${ avatar }`) } alt="Avatar" layout="fill" className={ styles.Avatar }

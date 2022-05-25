@@ -84,3 +84,49 @@ export const getRequests = async () => {
 		return null;
 	}
 }
+
+export const acceptRequest = async (requestId: number) => {
+	const requestUrl = getHost('relations/request/accept');
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'PATCH',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: JSON.stringify({
+				requestId: requestId
+			})
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
+export const denyRequest = async (requestId: number) => {
+	const requestUrl = getHost('relations/request/deny');
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'DELETE',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: JSON.stringify({
+				requestId: requestId
+			})
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}

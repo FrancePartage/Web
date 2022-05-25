@@ -15,28 +15,29 @@ const NotificationsPage: NextPage = ({ user }: NotificationsPageProps) => {
 
 	const [notifications, setNotifications] = useState([]);
 
+	const fetchRequests = async () => {
+		setNotifications([]);
+		const response = await getRequests();
+
+		if (response) {
+			setNotifications(response.data);
+		} 
+	}	
+
 	useEffect(() => {
-		const foo = async () => {
-			const response = await getRequests();
-
-			if (response) {
-				setNotifications(response.data);
-			} 
-		}
-
 		if (user) {
-			foo();
+			fetchRequests();
 		}
 	}, [user]);
 
   return (
-		<DefaultLayout>
+		<DefaultLayout user={user}>
 			<CenterLayout>
 				<div className={styles.Container}>
 				{
 					notifications.map((notification, index) => {
 						return (
-							<NotificationRelationRequestCard key={index} relation={notification} callback={() => {}} user={user} />
+							<NotificationRelationRequestCard key={index} relation={notification} callback={fetchRequests} user={user} />
 						)
 					})
 				}

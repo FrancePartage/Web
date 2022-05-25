@@ -7,6 +7,7 @@ import { resolveImage } from '@/utils/images';
 import { useEffect, useState } from 'react';
 import { getRelationObject } from '@/utils/relations-utils';
 import { getRelationString } from '@/utils/string-utils';
+import { acceptRequest, denyRequest } from '@/packages/api/relations';
 
 type NotificationRelationRequestCardProps = {
 	relation: any;
@@ -22,12 +23,12 @@ const NotificationRelationRequestCard = ({ relation, callback, user }: Notificat
 	}, [relation]);
 
 	const handleAccept = async () => {
-		//await acceptRelationRequest(id);
+		await acceptRequest(relation.id);
 		callback();
 	}
 
 	const handleDeny = async () => {
-		//await denyRelationRequest(id);
+		await denyRequest(relation.id);
 		callback();
 	}
 
