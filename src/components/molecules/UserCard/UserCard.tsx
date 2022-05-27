@@ -17,27 +17,30 @@ type UserCardProps = {
 const UserCard = ({ user, selectedUser }: UserCardProps) => {
 	const [showRelationTrigger, setShowRelationTrigger] = useState(false);
 	const [showRemoveRelation, setShowRemoveRelation] = useState(false);
+	const [relation, setRelation] = useState(null);
 	const [active, setActive] = useState(true);
 
-	useEffect(() => {
-		const foo = async () => {
-			const relation = await getRelationWith(parseInt(selectedUser.id));
+	const fetchRelation = async () => {
+		const relation = await getRelationWith(parseInt(selectedUser.id));
 
-			if (relation.data) {
-				if (!relation.data.isAccepted && relation.data.requestToId === parseInt(user.id)) {
-					setShowRelationTrigger(false);
-				} else {
-					setShowRemoveRelation(true);
-				}
+		if (relation.data) {
+			setRelation(relation.data);
 
-				setActive(relation.data.isAccepted);
+			if (!relation.data.isAccepted && relation.data.requestToId === parseInt(user.id)) {
+				setShowRelationTrigger(false);
 			} else {
-				setShowRelationTrigger(true);
+				setShowRemoveRelation(true);
 			}
-		}
 
+			setActive(relation.data.isAccepted);
+		} else {
+			setShowRelationTrigger(true);
+		}
+	}
+
+	useEffect(() => {
 		if (user && user.id != selectedUser.id) {
-			foo();
+			fetchRelation();
 		}
 	}, [user, selectedUser])
 
@@ -45,11 +48,13 @@ const UserCard = ({ user, selectedUser }: UserCardProps) => {
 		setShowRelationTrigger(false);
 		setShowRemoveRelation(true);
 		setActive(false);
+		fetchRelation();
 	}
 
 	const handleRemove = () => {
 		setShowRelationTrigger(true);
 		setShowRemoveRelation(false);
+		fetchRelation();
 	}
 
 	return (
@@ -64,7 +69,7 @@ const UserCard = ({ user, selectedUser }: UserCardProps) => {
 					<Heading1>{ selectedUser.displayName }</Heading1>
 
 					{ showRelationTrigger && <RelationTrigger callback={ handleAdd } user={ selectedUser }/> }
-					{ showRemoveRelation && <RemoveRelation callback={ handleRemove } user={ selectedUser } active={active} /> }
+					{ showRemoveRelation && <RemoveRelation relation={relation} callback={ handleRemove } user={ selectedUser } active={active} /> }
 
 				</div>
 

@@ -1,19 +1,27 @@
 import styles from './RemoveRelation.module.scss';
 import Button from '@/components/atoms/Button/Button';
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import { cancelRequest, deleteRelation } from '@/packages/api/relations';
 
 type RemoveRelationProps = {
+	relation: any;
 	user: any;
 	callback: any;
 	active: boolean;
 }
 
-const RemoveRelation = ({ user, callback, active }: RemoveRelationProps) => {
+const RemoveRelation = ({ relation, user, callback, active }: RemoveRelationProps) => {
 	const handleRemoveRelation = async () => {
-		/*
-		if (await removeRelation(user.email))
-			callback();
-		*/
+		if (!relation)
+			return;
+
+		if (active) {
+			if (await deleteRelation(relation.id))
+				callback();
+		} else {
+			if (await cancelRequest(relation.id))
+				callback();
+		}
 	}
 
 	return (

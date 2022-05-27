@@ -102,7 +102,7 @@ export const acceptRequest = async (requestId: number) => {
 			})
 		});
 
-		return await response.json();
+		return response.status == 200;
 	} catch (error) {
 		return null;
 	}
@@ -125,7 +125,54 @@ export const denyRequest = async (requestId: number) => {
 			})
 		});
 
-		return await response.json();
+		return response.status == 200;
+	} catch (error) {
+		return null;
+	}
+}
+
+export const deleteRelation = async (requestId: number) => {
+	const requestUrl = getHost('relations');
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'DELETE',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: JSON.stringify({
+				requestId: requestId
+			})
+		});
+
+		return response.status == 200;
+	} catch (error) {
+		return null;
+	}
+}
+
+
+export const cancelRequest = async (requestId: number) => {
+	const requestUrl = getHost('relations/request/cancel');
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'DELETE',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: JSON.stringify({
+				requestId: requestId
+			})
+		});
+
+		return response.status == 200;
 	} catch (error) {
 		return null;
 	}

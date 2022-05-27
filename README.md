@@ -20,7 +20,7 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [ ] Rechercher des ressources
 - [ ] Rechercher des relations
 - [x] Tags populaires
-- [ ] Afficher une bulle quand il y a une nouvelle notification
+- [x] Afficher une bulle quand il y a une nouvelle notification
   
 ### Authentification
 
@@ -57,7 +57,8 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [x] Afficher les requetes reçues
 - [x] Accepter une requete
 - [x] Refuser une requete
-- [ ] Annuler une requete
+- [x] Annuler une requete
+- [x] Supprimer une relation
 - [x] Afficher les relations d'un utilisateur
 - [x] Afficher les suggestions sur le feed
 
