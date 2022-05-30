@@ -11,7 +11,7 @@ const Alert = ({ text, type = 'error' }: AlertProps) => {
 
   return (
     <div className={classNames(styles.Alert, style)}>
-      <p>{text}</p>
+      <p dangerouslySetInnerHTML={{ __html: text }}></p>
     </div>
   );
 }

@@ -32,8 +32,8 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
  ### Utilisateurs
 
  - [ ] Changer son avatar
- - [ ] Changer son mot de passe
- - [ ] Changer ses informations
+ - [x] Changer son mot de passe
+ - [x] Changer ses informations
  - [x] Consulter un utilisateur
  - [x] Consulter les ressources d'un utilisateur
  - [x] Consulter les relations d'un utilisateur
@@ -75,3 +75,4 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [x] Corriger l'id différent entre le client et le serveru dans les forms lors du rechargement d'une page
 - [ ] Corriger le layout pour les pages de connexion et d'inscription
 - [x] Probleme d'insertion de contenu dans l'input Quill dans l'ajout d'une ressource
+- [ ] Corriger le nested link dans la ResourceCard
