@@ -4,19 +4,21 @@ import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import { isAuthenticated } from '@/utils/auth';
 import type { NextPage } from 'next';
 import styles from '@/styles/pages/profile.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CenterLayout from '@/components/templates/CenterLayout/CenterLayout';
 import Image from 'next/image';
 import Form from '@/components/atoms/Form/Form';
 import BasicInput from '@/components/molecules/BasicInput/BasicInput';
 import FormButton from '@/components/atoms/FormButton/FormButton';
 import { useForm } from 'react-hook-form';
-import { updateInformation, updatePassword } from '@/packages/api/users';
+import { updateInformation, updatePassword, updateAvatar } from '@/packages/api/users';
 import { resolveImage } from '@/utils/images';
 
 type ProfilePageProps = {
 	user?: any;
 }
+
+const acceptedImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
 const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 	const [success, setSuccess] = useState('');
@@ -91,6 +93,37 @@ const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 		setSuccess('Vous avez modifier le mot de passe de votre compte');
 	}
 
+	useEffect(() => {
+		const foo = async () => {
+			if (selectedImage) {
+				setEditError('');
+
+				if (selectedImage.size > 1000000) {
+					setEditError('L\'image est trop lourde (> 1MB)')
+					return;
+				}
+
+				if (!acceptedImageTypes.includes(selectedImage['type'])) {
+					setEditError('L\'image doit être au format JPG, JPEG ou PNG')
+					return;
+				}
+
+				const result = await updateAvatar(selectedImage);
+
+				if (result.statusCode) {
+					if (Array.isArray(result.message)) {
+						setEditError(result.message.join('<br>'));
+					} else {
+						setEditError(result.message);
+					}
+				} else {
+					setAvatar(result.imagePath);
+				}
+			}
+		}
+
+		foo();
+	}, [selectedImage]);
 
   return (
 			<DefaultLayout user={user}>
@@ -109,7 +142,7 @@ const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 
 					<label htmlFor="select-image">
 						<div className={ styles.Avatar }>
-							<Image src={ resolveImage(`avatars/${ user.avatar }`) } alt="Avatar" layout="fill" className={ styles.Image }/>
+							<Image src={ resolveImage(`avatars/${ avatar }`) } alt="Avatar" layout="fill" className={ styles.Image }/>
 						</div>
 					</label>
 

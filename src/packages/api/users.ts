@@ -107,3 +107,27 @@ export const updatePassword = async (oldPassword: string, newPassword: string) =
 		return null;
 	}
 }
+
+export const updateAvatar = async (avatar: File) => {
+	const requestUrl = getHost('users/avatar');
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const formData = new FormData();
+
+		formData.append('file', avatar);
+
+		const response: any = await fetch(requestUrl, {
+			method: 'POST',
+			headers: {
+				'Accept': '*/*',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: formData
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
