@@ -131,3 +131,22 @@ export const updateAvatar = async (avatar: File) => {
 		return null;
 	}
 }
+
+export const searchUsers = async (query: string) => {
+	try {
+		const requestUrl = getHost(`users/search/${query}`);
+
+		const response = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json'
+			}
+		});
+
+		return await response.json();
+	} catch(error) {
+		console.log(error);
+		return null;
+	}
+}

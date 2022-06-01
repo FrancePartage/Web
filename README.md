@@ -17,8 +17,8 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 
 ### Général
 
-- [ ] Rechercher des ressources
-- [ ] Rechercher des relations
+- [x] Rechercher des ressources
+- [x] Rechercher des relations
 - [x] Tags populaires
 - [x] Afficher une bulle quand il y a une nouvelle notification
   

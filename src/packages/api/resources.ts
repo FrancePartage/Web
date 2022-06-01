@@ -165,3 +165,20 @@ export const getComments = async (resourceId: number, page: number) => {
 	}
 }
 
+export const searchResources = async (query: string) => {
+	try {
+		const requestUrl = getHost(`resources/search/${query}`);
+
+		const response = await fetch(requestUrl, {
+			method: 'GET',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json'
+			}
+		});
+
+		return await response.json();
+	} catch(error) {
+		return null;
+	}
+}
