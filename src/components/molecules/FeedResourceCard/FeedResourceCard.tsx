@@ -40,17 +40,21 @@ const FeedResourceCard = ({ resource }: FeedResourceCardProps) => {
 				<Link href={`/resources/${resource.id}`}>
 					<a>
 						<Heading2>{ resource.title }</Heading2>
-						
-						<div className={styles.Tags}>
-							{ 
-								resource.tags.map((tag: any, index: number) => {
-									return (
-										<div className={styles.Tag} key={index}><Link href={`/resources/tags/${tag}`}><a>{tag}</a></Link></div>
-									);
-								})
-							}
-						</div>
-						
+					</a>
+				</Link>
+
+				<div className={styles.Tags}>
+					{ 
+						resource.tags.map((tag: any, index: number) => {
+							return (
+								<div className={styles.Tag} key={index}><Link href={`/resources/tags/${tag}`}><a>{tag}</a></Link></div>
+							);
+						})
+					}
+				</div>
+				
+				<Link href={`/resources/${resource.id}`}>
+					<a>
 						<div className={styles.Cover} style={coverStyle}></div>
 					</a>
 				</Link>
