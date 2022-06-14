@@ -73,7 +73,7 @@ const SearchPage = ({ user }: SearchPageProps) => {
 
 				{
 					resourceResults.map((resource: any) => {
-						return <FeedResourceCard resource={resource} />
+						return <FeedResourceCard resource={resource} user={user} />
 					})
 				}
 			</div>

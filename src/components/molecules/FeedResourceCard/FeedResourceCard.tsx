@@ -6,12 +6,14 @@ import { resolveImage } from '@/utils/images';
 import { timeSince } from '@/utils/date-utils';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid';
 
 type FeedResourceCardProps = {
 	resource: any;
+	user: any;
 }
 
-const FeedResourceCard = ({ resource }: FeedResourceCardProps) => {
+const FeedResourceCard = ({ resource, user }: FeedResourceCardProps) => {
 
 	const dateTime = new Date(resource.createdAt);
 
@@ -60,12 +62,25 @@ const FeedResourceCard = ({ resource }: FeedResourceCardProps) => {
 				</Link>
 			</div>
 
-			<div className={styles.Footer}>
-				<div className={styles.Action}>
-					<HeartIcon className={styles.Like} />
-					<p>Mettre en favori</p>
+			{ user && resource.liked !== undefined && 
+				<div className={styles.Footer}>
+					<div className={styles.Action}>
+						{
+							resource.liked ? 
+								<>
+									<SolidHeartIcon className={styles.Like} />
+									<p>Supprimer des favoris</p>
+								</>
+							:
+								<>
+									<HeartIcon className={styles.Like} />
+									<p>Mettre en favori</p>
+								</>
+						}
+						
+					</div>
 				</div>
-			</div>
+			}
 		</Card>
 	);
 }

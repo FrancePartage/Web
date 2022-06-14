@@ -10,7 +10,7 @@ type BasicInputProps = {
 
 const BasicInput = ({ type = 'text', label, disabled = false, formKey }: BasicInputProps) => {
 
-	const id = label ? label.replace(' ', '-') : 'input-id';
+	const id = label ? label.replace(' ', '-').toLowerCase() : 'input-id';
 
 	return (
 		<div className={ styles.BasicInputGroup }>

@@ -7,7 +7,7 @@ type TextAreaInputProps = {
 }
 
 const TextAreaInput = ({ label, formKey}: TextAreaInputProps) => {
-	const id = label.replaceAll(' ', '_');
+	const id = label.replace(' ', '_').toLowerCase();
 
 	return (
 		<div className={ styles.TextAreaGroup }>

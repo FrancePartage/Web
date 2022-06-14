@@ -9,7 +9,7 @@ type CheckboxInputProps = {
 
 const CheckboxInput = ({ label, disabled = false, formKey }: CheckboxInputProps) => {
 
-	const id = label ? label.replace(' ', '-') : 'checkbox-id';
+	const id = label ? label.replace(' ', '-').toLowerCase() : 'checkbox-id';
 
 	return (
 		<div className={ styles.CheckboxInputGroup }>

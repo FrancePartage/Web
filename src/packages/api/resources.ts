@@ -54,14 +54,21 @@ export const uploadImage = async (image: File) => {
 
 export const getResources = async (page: number) => {
 	const requestUrl = `${getHost('resources')}?page=${page}`;
+	const accessToken = getCookie('accessToken');
 
 	try {
+		const headers: any = {
+			'Accept': '*/*',
+			'Content-Type': 'application/json'
+		};
+
+		if (accessToken) {
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
+
 		const response: any = await fetch(requestUrl, {
 			method: 'GET',
-			headers: {
-				'Accept': '*/*',
-				'Content-Type': 'application/json',
-			}
+			headers: headers
 		});
 
 		return await response.json();
@@ -72,14 +79,21 @@ export const getResources = async (page: number) => {
 
 export const getResourcesByTag = async (tag: any, page: number) => {
 	const requestUrl = `${getHost(`resources/tags/${tag}`)}?page=${page}`;
+	const accessToken = getCookie('accessToken');
 
 	try {
+		const headers: any = {
+			'Accept': '*/*',
+			'Content-Type': 'application/json'
+		};
+
+		if (accessToken) {
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
+
 		const response: any = await fetch(requestUrl, {
 			method: 'GET',
-			headers: {
-				'Accept': '*/*',
-				'Content-Type': 'application/json',
-			}
+			headers: headers
 		});
 
 		return await response.json();

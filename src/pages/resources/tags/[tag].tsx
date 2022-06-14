@@ -98,7 +98,7 @@ const TagPage: NextPage = ({ user }: TagPageProps) => {
 
 						{
 							resources.map((resource, index) => {
-								return <FeedResourceCard resource={resource} key={index} />
+								return <FeedResourceCard resource={resource} key={index} user={user} />
 							})
 						}
 					</div>
