@@ -7,18 +7,50 @@ import { timeSince } from '@/utils/date-utils';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid';
+import LinkButton from '@/components/atoms/LinkButton/LinkButton';
+import Button from '@/components/atoms/Button/Button';
+import { useState } from 'react';
+import { dislikeResource, likeResource } from '@/packages/api/resources';
 
 type FeedResourceCardProps = {
 	resource: any;
 	user: any;
 }
 
-const FeedResourceCard = ({ resource, user }: FeedResourceCardProps) => {
+const FeedResourceCard = ({ resource: paramResource, user }: FeedResourceCardProps) => {
+
+	const [resource, setResource] = useState(paramResource);
 
 	const dateTime = new Date(resource.createdAt);
 
 	const coverStyle = {
 		backgroundImage: 'url(' + resolveImage(`covers/${ resource.cover }`) + ')'
+	}
+
+	const handleLikeClick = async () => {
+		if (resource.liked) {
+			return;
+		}
+
+		await likeResource(resource.id);
+
+		setResource({
+			...resource,
+			liked: true
+		});
+	}
+
+	const handleDislikeClick = async () => {
+		if (!resource.liked) {
+			return;
+		}
+
+		await dislikeResource(resource.id);
+
+		setResource({
+			...resource,
+			liked: false
+		});
 	}
 
 	return (
@@ -67,15 +99,15 @@ const FeedResourceCard = ({ resource, user }: FeedResourceCardProps) => {
 					<div className={styles.Action}>
 						{
 							resource.liked ? 
-								<>
+								<button className={styles.Button} onClick={handleDislikeClick}>
 									<SolidHeartIcon className={styles.Like} />
 									<p>Supprimer des favoris</p>
-								</>
+								</button>
 							:
-								<>
+								<button className={styles.Button} onClick={handleLikeClick}>
 									<HeartIcon className={styles.Like} />
 									<p>Mettre en favori</p>
-								</>
+								</button>
 						}
 						
 					</div>

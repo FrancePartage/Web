@@ -196,3 +196,43 @@ export const searchResources = async (query: string) => {
 		return null;
 	}
 }
+
+export const likeResource = async (id: number) => {
+	try {
+		const requestUrl = getHost(`resources/first/${id}/like`);
+		const accessToken = getCookie('accessToken');
+
+		const response = await fetch(requestUrl, {
+			method: 'POST',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			}
+		});
+
+		return await response.json();
+	} catch(error) {
+		return null;
+	}
+}
+
+export const dislikeResource = async (id: number) => {
+	try {
+		const requestUrl = getHost(`resources/first/${id}/like`);
+		const accessToken = getCookie('accessToken');
+
+		const response = await fetch(requestUrl, {
+			method: 'DELETE',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			}
+		});
+
+		return await response.json();
+	} catch(error) {
+		return null;
+	}
+}

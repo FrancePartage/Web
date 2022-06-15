@@ -44,12 +44,13 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [x] Systeme d'upload d'image dans Quill
 - [x] Afficher les ressources sur la page principale (infinite scroll)
 - [x] Consulter une ressource
-- [ ] Like/Dislike une ressource
+- [x] Like/Dislike une ressource
 - [x] Afficher les commentaires d'une ressource (pagination)
 - [x] Ajouter une commentaire
 - [x] Afficher les ressources d'un utilisateur
 - [x] Consulter les ressources par tags
 - [x] Ajouter du CSS pour le contenu (H1, H2, etc.)
+- [ ] Consulter ses favoris
 
 ### Relations
 
