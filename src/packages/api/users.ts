@@ -22,13 +22,20 @@ export const getUserInformations = async (userId: number) => {
 export const getUserResources = async (userId: number, page: number) => {
 	try {
 		const requestUrl = `${getHost(`users/${userId}/resources`)}?page=${page}`;
+		const accessToken = getCookie('accessToken');
+
+		const headers: any = {
+			'Accept': '*/*',
+			'Content-Type': 'application/json'
+		};
+
+		if (accessToken) {
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
 
 		const response = await fetch(requestUrl, {
 			method: 'GET',
-			headers: {
-				'Accept': '*/*',
-				'Content-Type': 'application/json'
-			}
+			headers: headers
 		});
 
 		return await response.json();

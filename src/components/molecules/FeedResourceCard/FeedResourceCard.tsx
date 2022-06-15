@@ -7,8 +7,6 @@ import { timeSince } from '@/utils/date-utils';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid';
-import LinkButton from '@/components/atoms/LinkButton/LinkButton';
-import Button from '@/components/atoms/Button/Button';
 import { useState } from 'react';
 import { dislikeResource, likeResource } from '@/packages/api/resources';
 

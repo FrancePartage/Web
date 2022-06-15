@@ -113,7 +113,6 @@ const TagPage: NextPage = ({ user }: TagPageProps) => {
 				<div className={ styles.RightColumn }>
 					{ user && suggestions && suggestions.length > 0 && <SuggestionsCard users={ suggestions }/> }
 					<PopularTagsCard tags={tags} />
-					<RssCard />
 				</div>
 			</ThreeColumnLayout>
     </DefaultLayout>

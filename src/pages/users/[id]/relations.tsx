@@ -72,7 +72,7 @@ const UserRelationsPage: NextPage = ({ user }: UserRelationsPageProps) => {
 
 	return (
 		<DefaultLayout user={user}>
-			{ selectedUser && <UserCard selectedUser={selectedUser} /> }
+			{ selectedUser && <UserCard user={user} selectedUser={selectedUser} /> }
 
 			<div>
 					<div className={ styles.RelationsFeed }>

@@ -21,6 +21,7 @@ Frontend pour la plateforme FrancePartage utilisant le framework NextJS
 - [x] Rechercher des relations
 - [x] Tags populaires
 - [x] Afficher une bulle quand il y a une nouvelle notification
+- [ ] Changer le systeme de refresh token
   
 ### Authentification
 

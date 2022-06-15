@@ -9,6 +9,7 @@ import { searchResources } from '@/packages/api/resources';
 import SearchUserCard from '@/components/molecules/SearchUserCard/SearchUserCard';
 import ResourceCard from '@/components/molecules/ResourceCard/ResourceCard';
 import FeedResourceCard from '@/components/molecules/FeedResourceCard/FeedResourceCard';
+import { isMaybeAuthentificated } from '@/utils/auth';
 
 type SearchPageProps = {
 	user: any;
@@ -66,19 +67,23 @@ const SearchPage = ({ user }: SearchPageProps) => {
 
 			<div className="v-flex">
 				{
-					userResults.map((user: any) => {
-						return <SearchUserCard user={user} />
+					userResults.map((user: any, index) => {
+						return <SearchUserCard user={user} key={index} />
 					})
 				}
 
 				{
-					resourceResults.map((resource: any) => {
-						return <FeedResourceCard resource={resource} user={user} />
+					resourceResults.map((resource: any, index) => {
+						return <FeedResourceCard resource={resource} user={user} key={index} />
 					})
 				}
 			</div>
 		</DefaultLayout>
 	);
+}
+
+SearchPage.getInitialProps = async (ctx) => {
+	return isMaybeAuthentificated(ctx);
 }
 
 export default SearchPage;

@@ -122,14 +122,21 @@ export const getPopularTags = async () => {
 
 export const getResource = async (id: number) => {
 	const requestUrl = `${getHost('resources/first')}/${id}`;
+	const accessToken = getCookie('accessToken');
 
 	try {
+		const headers: any = {
+			'Accept': '*/*',
+			'Content-Type': 'application/json'
+		};
+
+		if (accessToken) {
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
+
 		const response: any = await fetch(requestUrl, {
 			method: 'GET',
-			headers: {
-				'Accept': '*/*',
-				'Content-Type': 'application/json',
-			}
+			headers: headers
 		});
 		
 		return (await response.json()).data;
@@ -182,13 +189,20 @@ export const getComments = async (resourceId: number, page: number) => {
 export const searchResources = async (query: string) => {
 	try {
 		const requestUrl = getHost(`resources/search/${query}`);
+		const accessToken = getCookie('accessToken');
+
+		const headers: any = {
+			'Accept': '*/*',
+			'Content-Type': 'application/json'
+		};
+
+		if (accessToken) {
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
 
 		const response = await fetch(requestUrl, {
 			method: 'GET',
-			headers: {
-				'Accept': '*/*',
-				'Content-Type': 'application/json'
-			}
+			headers: headers
 		});
 
 		return await response.json();

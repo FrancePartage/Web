@@ -6,14 +6,46 @@ import { resolveImage } from '@/utils/images';
 import { timeSince } from '@/utils/date-utils';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
 import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
+import { dislikeResource, likeResource } from '@/packages/api/resources';
 
 type ResourceCardProps = {
+	user: any;
 	resource: any;
 }
 
-const ResourceCard = ({ resource }: ResourceCardProps) => {
+const ResourceCard = ({ user, resource: paramResource }: ResourceCardProps) => {
+
+	const [resource, setResource] = useState(paramResource);
 
 	const dateTime = new Date(resource.createdAt);
+
+	const handleLikeClick = async () => {
+		if (resource.liked) {
+			return;
+		}
+
+		await likeResource(resource.id);
+
+		setResource({
+			...resource,
+			liked: true
+		});
+	}
+
+	const handleDislikeClick = async () => {
+		if (!resource.liked) {
+			return;
+		}
+
+		await dislikeResource(resource.id);
+
+		setResource({
+			...resource,
+			liked: false
+		});
+	}
 
 	return (
 		<Card>
@@ -50,12 +82,24 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
 				<div className={styles.HtmlContent} dangerouslySetInnerHTML={{ __html: resource.content }}></div>
 			</div>
 
-			<div className={styles.Footer}>
-				<div className={styles.Action}>
-					<HeartIcon className={styles.Like} />
-					<p>Mettre en favori</p>
+			{ user && resource.liked !== undefined && 
+				<div className={styles.Footer}>
+					<div className={styles.Action}>
+							{
+								resource.liked ? 
+									<button className={styles.Button} onClick={handleDislikeClick}>
+										<SolidHeartIcon className={styles.Like} />
+										<p>Supprimer des favoris</p>
+									</button>
+								:
+									<button className={styles.Button} onClick={handleLikeClick}>
+										<HeartIcon className={styles.Like} />
+										<p>Mettre en favori</p>
+									</button>
+							}
+					</div>
 				</div>
-			</div>
+			}
 		</Card>
 	);
 }

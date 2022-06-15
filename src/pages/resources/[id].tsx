@@ -90,7 +90,7 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 
 	return (
 		<DefaultLayout user={user}>
-			{ resource && <ResourceCard resource={resource} /> }
+			{ resource && <ResourceCard user={user} resource={resource} /> }
 
 			<div className={styles.Comments}>
 				{

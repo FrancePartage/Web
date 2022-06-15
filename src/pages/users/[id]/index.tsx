@@ -78,7 +78,7 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 					<div className={ styles.Feed }>
 						{
 							resources.map((resource, index) => {
-								return <FeedResourceCard resource={resource} key={index} />
+								return <FeedResourceCard user={user} resource={resource} key={index} />
 							})
 						}
 					</div>
