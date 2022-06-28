@@ -1,8 +1,6 @@
 import { NextPageContext } from "next";
-import nextCookie from 'next-cookies';
 import Router from 'next/router';
-import Cookies from 'cookies';
-import { me, refreshTokens, setTokens } from '@/packages/api/auth';
+import { me, refreshTokens } from '@/packages/api/auth';
 import { UserRole } from "@/enums/roles";
 import { checkCookies, getCookies, removeCookies, setCookies } from "cookies-next";
 
