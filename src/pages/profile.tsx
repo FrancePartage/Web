@@ -137,7 +137,11 @@ const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 						type="file"
 						id="select-image"
 						style={ { display: 'none' } }
-						onChange={ e => setSelectedImage(e.target.files[0]) }
+						onChange={ e => { 
+							if (e.target.files!.length > 0) {
+								setSelectedImage(e.target.files![0]) 
+							}
+						}}
 					/>
 
 					<label htmlFor="select-image">
