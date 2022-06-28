@@ -16,7 +16,7 @@ type NotificationRelationRequestCardProps = {
 }
 
 const NotificationRelationRequestCard = ({ relation, callback, user }: NotificationRelationRequestCardProps) => {
-	const [parsedRelation, setParsedRelation] = useState(null);
+	const [parsedRelation, setParsedRelation] = useState<any>(null);
 
 	useEffect(() => {
 		setParsedRelation(getRelationObject(user.id, relation));
