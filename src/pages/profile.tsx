@@ -24,7 +24,7 @@ const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 	const [success, setSuccess] = useState('');
 	const [editError, setEditError] = useState('');
 	const [passwordError, setPasswordError] = useState('');
-	const [selectedImage, setSelectedImage] = useState(null);
+	const [selectedImage, setSelectedImage] = useState<any>(null);
 	const [avatar, setAvatar] = useState(user?.avatar);
 
 	const { register: registerEdit, handleSubmit: handleEdit } = useForm({
