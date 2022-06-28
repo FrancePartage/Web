@@ -51,7 +51,7 @@ type AddResourcePageProps = {
 
 const AddResourcePage: NextPage = ({ user }: AddResourcePageProps) => {
 	const router = useRouter();
-	const editorRef = useRef(null);
+	const editorRef = useRef<any>(null);
 	const [content, setContent] = useState('');
 	const [tags, setTags] = useState([]);
 	const [error, setError] = useState('');

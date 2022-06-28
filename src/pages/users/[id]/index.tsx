@@ -41,7 +41,7 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 			setResources([]);
 			setHasNextPage(false);
 
-			const userInfos = await getUserInformations(id);
+			const userInfos = await getUserInformations(parseInt(id!.toString()));
 			
 			if (userInfos && !userInfos.statusCode) {
 				setSelectedUser(userInfos);
@@ -77,7 +77,7 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 			<div>
 					<div className={ styles.Feed }>
 						{
-							resources.map((resource, index) => {
+							resources.map((resource: any, index: number) => {
 								return <FeedResourceCard user={user} resource={resource} key={index} />
 							})
 						}
