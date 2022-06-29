@@ -3,7 +3,6 @@ import ThreeColumnLayout from '@/components/templates/ThreeColumnLayout/ThreeCol
 import { isMaybeAuthentificated } from '@/utils/auth';
 import styles from '@/styles/pages/index.module.scss';
 import type { NextPage } from 'next';
-import RssCard from '@/components/molecules/RssCard/RssCard';
 import { useEffect, useState } from 'react';
 import { getSuggestions } from '@/packages/api/relations';
 import SuggestionsCard from '@/components/molecules/SuggestionCard/SuggestionsCard';
