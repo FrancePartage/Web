@@ -23,7 +23,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo npm uninstall react-quill
+        sudo npm uninstall react-quill --legacy-peer-deps
+        sudo npm uninstall react-tagsinput --legacy-peer-deps
 
     - name: Cypress run
       uses: cypress-io/github-action@v4
