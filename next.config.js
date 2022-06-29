@@ -2,10 +2,10 @@
 const nextConfig = {
   reactStrictMode: false,
 	env: {
-		API_SERVER_URL: 'http://localhost:3333'
+		API_SERVER_URL: 'http://api-francepartage.zapto.org'
 	},
 	images: {
-    domains: ['localhost']
+    domains: ['localhost', 'francepartage.zapto.org', 'api-francepartage.zapto.org']
   }
 }
 
