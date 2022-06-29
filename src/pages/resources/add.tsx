@@ -9,14 +9,14 @@ import { useForm } from 'react-hook-form';
 import Heading1 from '@/components/atoms/Heading1/Heading1';
 import BasicInput from '@/components/molecules/BasicInput/BasicInput';
 import FormButton from '@/components/atoms/FormButton/FormButton';
-import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css';
 import Label from '@/components/atoms/Label/Label';
 import Alert from '@/components/atoms/Alert/Alert';
 import { isFileImage, resolveImage } from '@/utils/images';
 import { isAuthenticated } from '@/utils/auth';
 import { addResource, uploadImage } from '@/packages/api/resources';
 import { useRouter } from 'next/router';
+import TagsInput from '@/components/molecules/TagsInput/TagsInput';
+import '@/styles/add.scss';
 
 const ReactQuill = dynamic(
   async () => {
