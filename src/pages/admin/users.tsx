@@ -3,11 +3,8 @@ import AdminNavBar from '@/components/molecules/AdminNavBar/AdminNavBar';
 import Card from '@/components/atoms/Card/Card';
 import DataTable from "react-data-table-component";
 import {useEffect, useState} from "react";
-import IconButton from '@/components/atoms/IconButton/IconButton'
-import {CheckIcon,PencilIcon, EyeIcon, TrashIcon} from "@heroicons/react/outline";
 import {userRole} from '@/utils/string-utils'
 import {getUsers} from "@/packages/api/users";
-import {MinusCircleIcon} from "@heroicons/react/solid";
 import Select from 'react-select';
 
 import {NextPage} from "next";
@@ -19,7 +16,7 @@ type HomePageProps = {
 
 
 const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
     const [perPage, setPerPage] = useState(10);
@@ -30,32 +27,32 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
         [
             {
                 name: 'Id',
-                selector: row => row.id, // accessor is the "key" in the data
+                selector: (row: any) => row.id, // accessor is the "key" in the data
             },
             {
                 name: 'Nom',
-                selector: row => row.name, // accessor is the "key" in the data
+                selector: (row: any) => row.name, // accessor is the "key" in the data
             },
             {
                 name: 'Prénom',
-                selector: row => row.firstname, // accessor is the "key" in the data
+                selector: (row: any) => row.firstname, // accessor is the "key" in the data
             },
             {
                 name: 'Email',
-                selector: row => row.mail, // accessor is the "key" in the data
+                selector: (row: any) => row.mail, // accessor is the "key" in the data
             },
             {
                 name: 'Rôle',
-                selector: row => row.role, // accessor is the "key" in the data
+                selector: (row: any) => row.role, // accessor is the "key" in the data
             },
             {
                 name: 'Actions',
-                selector: row => row.actions, // accessor is the "key" in the data
+                selector: (row: any) => row.actions, // accessor is the "key" in the data
                 sortable: true,
                 ignoreRowClick: true,
                 allowOverflow: true,
                 button: true,
-                cell: row => <>
+                cell: (row: any) => <>
                     <Select
                         options={options}
                         onChange={() => {
@@ -150,8 +147,7 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
                     paginationTotalRows={totalRows}
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={handlePageChange}
-                >
-                </DataTable>
+                />
             </Card>
         </DefaultLayout>
     )
