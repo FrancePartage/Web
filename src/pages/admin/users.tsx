@@ -4,11 +4,11 @@ import Card from '@/components/atoms/Card/Card';
 import DataTable from "react-data-table-component";
 import {useEffect, useState} from "react";
 import IconButton from '@/components/atoms/IconButton/IconButton'
-import {CheckIcon, EyeIcon, TrashIcon} from "@heroicons/react/outline";
+import {CheckIcon,PencilIcon, EyeIcon, TrashIcon} from "@heroicons/react/outline";
 import {userRole} from '@/utils/string-utils'
 import {getUsers} from "@/packages/api/users";
 import {MinusCircleIcon} from "@heroicons/react/solid";
-
+import Select from 'react-select';
 
 import {NextPage} from "next";
 import {isMaybeAuthentificated} from "@/utils/auth";
@@ -17,37 +17,6 @@ type HomePageProps = {
     user?: any;
 }
 
-const columns =
-    [
-        {
-            name: 'Id',
-            selector: row => row.id, // accessor is the "key" in the data
-        },
-        {
-            name: 'Nom',
-            selector: row => row.name, // accessor is the "key" in the data
-        },
-        {
-            name: 'Prénom',
-            selector: row => row.firstname, // accessor is the "key" in the data
-        },
-        {
-            name: 'Email',
-            selector: row => row.mail, // accessor is the "key" in the data
-        },
-        {
-            name: 'Rôle',
-            selector: row => row.role, // accessor is the "key" in the data
-        },
-        {
-            name: 'Actif',
-            selector: row => row.active, // accessor is the "key" in the data
-        },
-        {
-            name: 'Actions',
-            selector: row => row.actions, // accessor is the "key" in the data
-        },
-    ];
 
 const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
     const [data, setData] = useState([]);
@@ -55,6 +24,54 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
     const [totalRows, setTotalRows] = useState(0);
     const [perPage, setPerPage] = useState(10);
     const [render, setRender] = useState(0);
+    const [selectedRole, setSelectedRole] = useState('');
+
+    const columns =
+        [
+            {
+                name: 'Id',
+                selector: row => row.id, // accessor is the "key" in the data
+            },
+            {
+                name: 'Nom',
+                selector: row => row.name, // accessor is the "key" in the data
+            },
+            {
+                name: 'Prénom',
+                selector: row => row.firstname, // accessor is the "key" in the data
+            },
+            {
+                name: 'Email',
+                selector: row => row.mail, // accessor is the "key" in the data
+            },
+            {
+                name: 'Rôle',
+                selector: row => row.role, // accessor is the "key" in the data
+            },
+            {
+                name: 'Actions',
+                selector: row => row.actions, // accessor is the "key" in the data
+                sortable: true,
+                ignoreRowClick: true,
+                allowOverflow: true,
+                button: true,
+                cell: row => <>
+                    <Select
+                        options={options}
+                        onChange={() => {
+                            handleRoleChange(row.id)
+                        }}
+                    />
+                </>,
+
+            },
+        ];
+
+    const options = [
+        {value: 'ADMIN', label: 'Administrateur'},
+        {value: 'MODERATOR', label: 'Modérateur'},
+        {value: 'CITIZEN', label: 'Citoyen'}
+    ]
 
     const fetchUsers = async (page: number, perPage: number) => {
         setLoading(true);
@@ -71,17 +88,7 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
                     firstname: user.firstname,
                     mail: user.email,
                     role: userRole(user.role),
-                    active: user.active ? "Actif" : "Inactif",
-                    actions: <>
-                        <IconButton onClick={() => {
-                        }}>
-                            <MinusCircleIcon/>
-                        </IconButton>
-                        <IconButton onClick={() => {
-                        }}>
-                            <TrashIcon/>
-                        </IconButton></>,
-                }
+                   }
             );
         })
 
@@ -94,6 +101,11 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
         await fetchUsers(page, perPage);
     };
 
+    const handleRoleChange = async (e: any) => {
+        console.log(e)
+    };
+
+
     useEffect(() => {
         fetchUsers(1, perPage); // fetch page 1 of users
     }, [])
@@ -101,7 +113,7 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
     const handlePerRowsChange = async (newPerPage: number, page: number) => {
         setLoading(true);
 
-        const res = await getResources(page, newPerPage);
+        const res = await getUsers(page, newPerPage);
 
         const docs: any[] = [];
 
@@ -114,9 +126,7 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
                     mail: user.email,
                     role: userRole(user.roleId),
                     active: user.active ? "Actif" : "Inactif",
-                    actions: <>
-                        <IconButton><EyeIcon/></IconButton><IconButton><MinusCircleIcon/></IconButton><IconButton><TrashIcon/></IconButton></>,
-                }
+                   }
             );
         })
 
