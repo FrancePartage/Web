@@ -12,10 +12,33 @@ permissions:
   contents: read
 
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Install dependencies
+        run: |
+          sudo npm install
+    
+    - name: Test E2E
+      run: |
+        sudo npm run cypress:headless
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
+    needs: test
 
     steps:
     - name: Checkout

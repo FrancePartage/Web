@@ -17,8 +17,13 @@ describe('Authentification', () => {
 		cy.get('input[name="acceptRgpd"]').click();
 		cy.get('input[type="submit"]').click();
 
-		cy.url().should('eq', Cypress.config().baseUrl)
-		cy.getCookie('accessToken').should('exist')
-		cy.getCookie('refreshToken').should('exist')
+		cy.url().should('eq', Cypress.config().baseUrl);
+		cy.getCookie('accessToken').should('exist');
+		cy.getCookie('refreshToken').should('exist');
+
+		cy.contains(randomUsername).should('exist');
+
+		cy.get('a[href="/resources/add"]').click();
+		cy.url().should('eq', Cypress.config().baseUrl + 'resources/add');
   });
 });
