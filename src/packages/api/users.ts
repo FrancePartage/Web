@@ -1,6 +1,32 @@
 import { getHost } from "@/utils/get-host";
 import { getCookie } from "cookies-next";
 
+export const getUsers = async (page: number, limit: number = 10) => {
+	const requestUrl = `${getHost('users')}?page=${page}&limit=${limit}`;
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const headers: any = {
+			'Accept': '*/*',
+			'Content-Type': 'application/json'
+		};
+
+		if (accessToken) {
+			headers['Authorization'] = `Bearer ${accessToken}`;
+		}
+
+		const response: any = await fetch(requestUrl, {
+			method: 'GET',
+			headers: headers
+		});
+
+		return await response.json();
+	} catch (error) {
+		return null;
+	}
+}
+
+
 export const getUserInformations = async (userId: number) => {
 	try {
 		const requestUrl = getHost(`users/${userId}`);

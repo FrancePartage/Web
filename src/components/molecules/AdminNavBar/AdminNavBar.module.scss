@@ -1,0 +1,12 @@
+@import '../../../styles/variables.scss';
+
+.Content {
+	margin-bottom: 24px;
+}
+
+.NavBar {
+	ul {
+		display: flex;
+		gap: 16px;
+	}
+}
