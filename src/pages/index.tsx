@@ -45,7 +45,7 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
 			const remoteResources = await getResources(page);
 			const _resources: any[] = [...resources];
 
-			if (remoteResources) {
+			if (remoteResources && remoteResources.data) {
 				remoteResources.data.map((resource: any) => {
 					_resources.push(resource);
 				});
