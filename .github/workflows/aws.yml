@@ -27,8 +27,8 @@ jobs:
         node-version: 16
 
     - name: Install dependencies
-        run: |
-          sudo npm install
+      run: |
+        sudo npm install
     
     - name: Test E2E
       run: |
