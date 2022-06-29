@@ -1,5 +1,5 @@
 export const resolveImage = (path: string): string => {
-	return `http://localhost:3333/assets/${path}`;
+	return `http://api-francepartage.zapto.org/assets/${path}`;
 }
 
 export const isFileImage = (file: File): boolean => {

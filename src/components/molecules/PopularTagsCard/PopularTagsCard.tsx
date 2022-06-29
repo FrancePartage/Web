@@ -2,6 +2,7 @@ import styles from './PopularTagsCard.module.scss';
 import Card from '@/components/atoms/Card/Card';
 import Heading3 from '@/components/atoms/Heading3/Heading3';
 import Link from 'next/link';
+import { capitalize } from '@/utils/string-utils';
 
 type PopularTagsCardProps = {
 	tags: any;
@@ -18,7 +19,7 @@ const PopularTagsCard = ({ tags }: PopularTagsCardProps) => {
 						return (
 							<Link href={`/resources/tags/${tag.tag}`} key={index}>
 								<a>
-									<div className={styles.Tag}>{tag.tag}</div>
+									<div className={styles.Tag}>{capitalize(tag.tag)}</div>
 								</a>
 							</Link>
 						)

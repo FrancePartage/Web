@@ -25,14 +25,14 @@ const TagPage: NextPage = ({ user }: TagPageProps) => {
   const { tag } = router.query;
 
 	const [suggestions, setSuggestions] = useState([]);
-	const [resources, setResources] = useState([]);
+	const [resources, setResources] = useState<any[]>([]);
 	const [tags, setTags] = useState([]);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
 
 	const pullResources = async (keepOld: boolean) => {
 		const remoteResources = await getResourcesByTag(tag, page);
-		const _resources = keepOld ? [...resources] : [];
+		const _resources: any[] = keepOld ? [...resources] : [];
 
 		if (remoteResources) {
 			remoteResources.data.map((resource: any) => {

@@ -1,0 +1,48 @@
+name: Deploy to Amazon EC2
+
+on:
+  push:
+    branches:
+      - "master"
+
+env:
+  AWS_REGION: eu-west-3       
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Add SSH key to the agent
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+    - name: Deploy to EC2
+      env:
+        REMOTE_HOST: ${{ secrets.EC2_HOST_DNS }}
+        REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+      run: |
+        # Executed on EC2
+        ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST "cd /var/www/web; pm2 stop next; sudo GIT_SSH_COMMAND='ssh -i /home/admin/.ssh/id_ed25519 -o IdentitiesOnly=yes' git pull; sudo npm install; sudo npm run build; pm2 start npm --name 'next' -- start"
+        # cd /var/www/web
+        # pm2 stop next
+        # sudo GIT_SSH_COMMAND='ssh -i /home/admin/.ssh/id_ed25519 -o IdentitiesOnly=yes' git pull
+        # sudo npm install
+        # sudo npm run build
+        # pm2 start npm --name "next" -- start

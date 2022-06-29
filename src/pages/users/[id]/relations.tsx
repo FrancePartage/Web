@@ -21,10 +21,10 @@ const UserRelationsPage: NextPage = ({ user }: UserRelationsPageProps) => {
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
-	const [relations, setRelations] = useState([]);
+	const [relations, setRelations] = useState<any[]>([]);
 
 	const pullRelations = async (keepOld: boolean) => {
-		const remoteRelations = await getUserRelations(id, page);
+		const remoteRelations = await getUserRelations(parseInt(id!.toString()), page);
 		const _relations = keepOld ? [...relations] : [];
 
 		if (remoteRelations) {
@@ -42,7 +42,7 @@ const UserRelationsPage: NextPage = ({ user }: UserRelationsPageProps) => {
 			setRelations([]);
 			setHasNextPage(false);
 
-			const userInfos = await getUserInformations(id);
+			const userInfos = await getUserInformations(parseInt(id!.toString()));
 			
 			if (userInfos && !userInfos.statusCode) {
 				setSelectedUser(userInfos);
@@ -78,7 +78,7 @@ const UserRelationsPage: NextPage = ({ user }: UserRelationsPageProps) => {
 					<div className={ styles.RelationsFeed }>
 						{
 							relations.map((relation, index) => {
-								return <RelationCard key={index} relation={getRelationObject(id, relation)} />
+								return <RelationCard key={index} relation={getRelationObject(parseInt(id!.toString()), relation)} />
 							})
 						}
 					</div>
