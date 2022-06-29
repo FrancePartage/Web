@@ -28,7 +28,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo npm install --force
+        sudo npm install -g cypress
     
     - name: Test E2E
       run: |
