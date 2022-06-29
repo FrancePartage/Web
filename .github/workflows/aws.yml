@@ -32,7 +32,7 @@ jobs:
     
     - name: Test E2E
       run: |
-        sudo npm run cypress:headless
+        sudo cypress run
 
   deploy:
     name: Deploy
