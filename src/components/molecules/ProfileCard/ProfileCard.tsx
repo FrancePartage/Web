@@ -16,7 +16,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 		<Image src={ resolveImage(`avatars/${ user.avatar }`) } alt="Avatar" layout="fill" className={styles.Image} />
 	  </div>
 
-	  <div className={styles.Name}>
+	  <div className={styles.Name} data-textid="e2e-displayName">
 		<Heading1>{user.displayName}</Heading1>
 	  </div>
 
