@@ -18,6 +18,39 @@ export const getRelationString = (relationType: string): string => {
     }
 }
 
+export const resourceStatus = (resourceStatus: string) => {
+    let label = "En attente de validation"
+    switch (resourceStatus) {
+        case 'APPROVED' :
+            label = "Approuvée"
+            break;
+        case 'SUSPENDED':
+            label = "Suspendue"
+            break;
+        default:
+            break;
+    }
+    return label;
+}
+
+export const userRole = (userRole: string) => {
+    let label = "Citoyen";
+    switch (userRole) {
+        case 'MDOERATOR' :
+            label = "Modérateur"
+            break;
+        case 'ADMIN':
+            label = "Administrateur"
+            break;
+        case 'SUPER_ADMIN':
+            label = "Super-Administrateur"
+            break;
+        default:
+            break;
+    }
+    return label;
+}
+
 export const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
