@@ -1,4 +1,4 @@
-import styles from './AdminNavbar.module.scss';
+import styles from './AdminNavBar.module.scss';
 import Card from '@/components/atoms/Card/Card';
 import Link from 'next/link';
 
