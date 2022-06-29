@@ -28,7 +28,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo npm install
+        sudo npm install --force
     
     - name: Test E2E
       run: |
