@@ -21,11 +21,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-        sudo npm uninstall react-quill --save
-        sudo npm uninstall react-tagsinput --save
-
     - name: Cypress run
       uses: cypress-io/github-action@v4
 
