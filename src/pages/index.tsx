@@ -21,7 +21,7 @@ type HomePageProps = {
 
 const HomePage: NextPage = ({ user }: HomePageProps) => {
 	const [suggestions, setSuggestions] = useState([]);
-	const [resources, setResources] = useState([]);
+	const [resources, setResources] = useState<any[]>([]);
 	const [tags, setTags] = useState([]);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
@@ -43,7 +43,7 @@ const HomePage: NextPage = ({ user }: HomePageProps) => {
 	useEffect(() => {
 		const foo = async () => {
 			const remoteResources = await getResources(page);
-			const _resources = [...resources];
+			const _resources: any[] = [...resources];
 
 			if (remoteResources) {
 				remoteResources.data.map((resource: any) => {

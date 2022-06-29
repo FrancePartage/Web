@@ -22,8 +22,8 @@ type ResourcePageProps = {
 const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 	const router = useRouter();
 	const { id } = router.query;
-	const [resource, setResource] = useState(null);
-	const [comments, setComments] = useState([]);
+	const [resource, setResource] = useState<any>(null);
+	const [comments, setComments] = useState<any[]>([]);
 	const [commentsPage, setCommentsPage] = useState(1);
 	const [commentsHasNextPage, setCommentsHasNextPage] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
@@ -34,7 +34,7 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 		setComments([]);
 
 		const foo = async () => {
-			const response = await getResource(id);
+			const response = await getResource(parseInt(id!.toString()));
 
 			if (response === null) {
 				router.push('/404');
@@ -48,7 +48,7 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 
 	useEffect(() => {
 		const foo = async () => {
-			const remoteComments = await getComments(id, commentsPage);
+			const remoteComments = await getComments(parseInt(id!.toString()), commentsPage);
 			const _comments = [...comments];
 
 			if (remoteComments) {
@@ -72,7 +72,7 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 			return;
 		}
 
-		const response = await addComment(id, data.comment);
+		const response = await addComment(parseInt(id!.toString()), data.comment);
 		
 		if (response && !response.statusCode) {
 			const _comments = [...comments];

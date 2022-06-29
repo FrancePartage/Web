@@ -51,7 +51,7 @@ type AddResourcePageProps = {
 
 const AddResourcePage: NextPage = ({ user }: AddResourcePageProps) => {
 	const router = useRouter();
-	const editorRef = useRef(null);
+	const editorRef = useRef<any>(null);
 	const [content, setContent] = useState('');
 	const [tags, setTags] = useState([]);
 	const [error, setError] = useState('');
@@ -63,7 +63,7 @@ const AddResourcePage: NextPage = ({ user }: AddResourcePageProps) => {
 		input.click();
 
 		input.onchange = async () => {
-			const editor = editorRef.current.getEditor();
+			const editor = editorRef.current!.getEditor();
 			const file = input.files![0];
 
 			if (/^image\//.test(file.type)) {
