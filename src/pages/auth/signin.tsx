@@ -33,8 +33,8 @@ const LoginPage: NextPage = ()  => {
 			return;
 		}
 
-		setCookies('accessToken', response.accessToken, { maxAge: 15 * 60 * 1000  });
-		setCookies('refreshToken', response.refreshToken, { maxAge: 60 * 60 * 24 * 15 * 1000 });
+		setCookies('accessToken', response.accessToken, { maxAge: 15 * 60  });
+		setCookies('refreshToken', response.refreshToken, { maxAge: 60 * 60 * 24 * 15 });
 
 		router.push('/');
   }

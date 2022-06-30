@@ -34,8 +34,8 @@ export const isAuthenticated = async (ctx: NextPageContext) => {
 			tokens.accessToken = newTokens.accessToken;
 			tokens.refreshToken = newTokens.refreshToken;
 			
-			setCookie('accessToken', tokens.accessToken, 15 * 60 * 1000, ctx);
-			setCookie('refreshToken', tokens.refreshToken, 60 * 60 * 24 * 15 * 1000, ctx);
+			setCookie('accessToken', tokens.accessToken, 15 * 60, ctx);
+			setCookie('refreshToken', tokens.refreshToken, 60 * 60 * 24 * 15, ctx);
 		}
 
 		const user = await getUser(tokens.accessToken);
@@ -68,8 +68,8 @@ export const isMaybeAuthentificated = async (ctx: NextPageContext) => {
 			tokens.accessToken = newTokens.accessToken;
 			tokens.refreshToken = newTokens.refreshToken;
 			
-			setCookie('accessToken', tokens.accessToken, 15 * 60 * 1000, ctx);
-			setCookie('refreshToken', tokens.refreshToken, 60 * 60 * 24 * 15 * 1000, ctx);
+			setCookie('accessToken', tokens.accessToken, 15 * 60, ctx);
+			setCookie('refreshToken', tokens.refreshToken, 60 * 60 * 24 * 15, ctx);
 		}
 
 		const user = await getUser(tokens.accessToken);

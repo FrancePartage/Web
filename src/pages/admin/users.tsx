@@ -17,7 +17,7 @@ type HomePageProps = {
 
 
 const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
     const [perPage, setPerPage] = useState(10);
@@ -27,46 +27,35 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
         [
             {
                 name: 'Id',
-                selector: row => row.id, // accessor is the 'key' in the data
+                selector: (row: any) => row.id, // accessor is the 'key' in the data
                 sortable: true,
-                allowOverflow: true,
                 grow: 1,
-
             },
             {
                 name: 'Nom',
-                selector: row => row.name, // accessor is the 'key' in the data
-                sortable: true,
-                allowOverflow: true,
-
+                selector: (row: any) => row.name, // accessor is the "key" in the data
+                sortable: true
             },
             {
                 name: 'Prénom',
-                selector: row => row.firstname, // accessor is the 'key' in the data
-                sortable: true,
-                allowOverflow: true,
-
+                selector: (row: any) => row.firstname, // accessor is the "key" in the data
+                sortable: true
             },
             {
                 name: 'Email',
-                selector: row => row.mail, // accessor is the 'key' in the data
-                sortable: true,
-                allowOverflow: true,
-
+                selector: (row: any) => row.mail, // accessor is the "key" in the data
+                sortable: true
             },
             {
                 name: 'Rôle',
-                selector: row => row.role, // accessor is the 'key' in the data
-                sortable: true,
-                allowOverflow: true,
-
+                selector: (row: any) => row.role, // accessor is the "key" in the data
+                sortable: true
             },
             {
                 name: 'Actions',
-                selector: row => row.actions, // accessor is the 'key' in the data
+                selector: (row: any) => row.actions, // accessor is the "key" in the data
                 ignoreRowClick: true,
-                allowOverflow: true,
-                cell: row => <>
+                cell: (row: any) => <>
                     <Select
                         placeholder={'Changer de status'}
                         options={options}
@@ -167,8 +156,7 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
                     paginationTotalRows={totalRows}
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={handlePageChange}
-                >
-                </DataTable>
+                />
             </Card>
 
 

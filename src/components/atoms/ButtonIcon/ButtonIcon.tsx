@@ -1,8 +1,11 @@
-import Button from "@/components/atoms/Button/Button";
+type ButtonIconProps = {
+    children: any,
+    onClick: any
+}
 
-const ButtonIcon = ({children: any, onClick}) => {
+const ButtonIcon = ({children, onClick}: ButtonIconProps) => {
     return (
-        <button onClick> {children}</button>
+        <button onClick={onClick}> {children}</button>
     )
 }
 

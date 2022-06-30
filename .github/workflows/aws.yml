@@ -12,10 +12,23 @@ permissions:
   contents: read
 
 jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Cypress run
+      uses: cypress-io/github-action@v4
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
+    needs: test
 
     steps:
     - name: Checkout

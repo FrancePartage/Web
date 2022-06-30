@@ -45,8 +45,8 @@ const RegisterPage: NextPage = () => {
 		const response = await signUp(data.email, data.username, data.firstName, data.lastName, data.password, data.acceptRgpd);
 
 		if (response.accessToken && response.refreshToken) {
-			setCookies('accessToken', response.accessToken, { maxAge: 15 * 60 * 1000  });
-			setCookies('refreshToken', response.refreshToken, { maxAge: 60 * 60 * 24 * 15 * 1000 });
+			setCookies('accessToken', response.accessToken, { maxAge: 15 * 60  });
+			setCookies('refreshToken', response.refreshToken, { maxAge: 60 * 60 * 24 * 15 });
 
 			await router.push('/');
 		} else {

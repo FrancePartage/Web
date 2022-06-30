@@ -20,7 +20,7 @@ type HomePageProps = {
 }
 
 const AdminResourcesSuspendedPage: NextPage = ({user}: HomePageProps) => {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
     const [perPage, setPerPage] = useState(10);
@@ -30,28 +30,28 @@ const AdminResourcesSuspendedPage: NextPage = ({user}: HomePageProps) => {
         [
             {
                 name: 'Id',
-                selector: row => row.id,
+                selector: (row: any) => row.id,
                 sortable: true,
             },
             {
                 name: 'Utilisateur',
-                selector: row => row.user,
+                selector: (row: any) => row.user,
                 sortable: true,
             },
             {
                 name: 'Date de demande',
-                selector: row => row.date,
+                selector: (row: any) => row.date,
                 sortable: true,
             },
             {
                 name: 'Status',
-                selector: row => row.status,
+                selector: (row: any) => row.status,
                 sortable: true,
             },
             {
                 name: 'Actions',
-                selector: row => row.actions,
-                cell: row => <>
+                selector: (row: any) => row.actions,
+                cell: (row: any) => <>
                     <LinkIconButton href={`/resources/${row.id}`}><EyeIcon/></LinkIconButton>
                     <IconButton onClick={() => handleAllow(row)}><CheckIcon/></IconButton>
                     <IconButton onClick={() => handleDelete(row)}><TrashIcon/></IconButton>
@@ -150,8 +150,7 @@ const AdminResourcesSuspendedPage: NextPage = ({user}: HomePageProps) => {
                     paginationTotalRows={totalRows}
                     onChangeRowsPerPage={handlePerRowsChange}
                     onChangePage={handlePageChange}
-                >
-                </DataTable>
+                />
             </Card>
         </DefaultLayout>
     )
