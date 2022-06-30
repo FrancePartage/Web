@@ -16,7 +16,6 @@ import { isAuthenticated } from '@/utils/auth';
 import { addResource, uploadImage } from '@/packages/api/resources';
 import { useRouter } from 'next/router';
 import TagsInput from '@/components/molecules/TagsInput/TagsInput';
-import '@/styles/add.scss';
 
 const ReactQuill = dynamic(
   async () => {
