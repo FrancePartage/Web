@@ -45,7 +45,7 @@ const AdminHomePage: NextPage = ({user}: HomePageProps) => {
                             <p className={styles.CenteredDiv}>{totalResources}</p>
                         </div>
                         <div>
-                            <Heading2>Nombre d&amp;apos;utilisateurs</Heading2>
+                            <Heading2>Nombre d&apos;utilisateurs</Heading2>
                             <p className={styles.CenteredDiv}>{totalUsers}</p>
                         </div>
                     </div>
