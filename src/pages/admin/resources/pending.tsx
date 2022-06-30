@@ -1,17 +1,19 @@
 import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import AdminNavBar from '@/components/molecules/AdminNavBar/AdminNavBar';
 import Card from '@/components/atoms/Card/Card';
-import DataTable from "react-data-table-component";
-import {useEffect, useState} from "react";
+import DataTable from 'react-data-table-component';
+import {useEffect, useState} from 'react';
 import {getPendingResources, updateStatus} from '@/packages/api/resources';
 import {resourceStatus} from '@/utils/string-utils';
 import moment from 'moment';
 import IconButton from '@/components/atoms/IconButton/IconButton'
-import {CheckIcon, EyeIcon, TrashIcon} from "@heroicons/react/outline";
+import {CheckIcon, EyeIcon, TrashIcon} from '@heroicons/react/outline';
 
 
-import {NextPage} from "next";
-import {isMaybeAuthentificated} from "@/utils/auth";
+import {NextPage} from 'next';
+import {isMaybeAuthentificated} from '@/utils/auth';
+import LinkIconButton from '@/components/atoms/LinkIconButon/LinkIconButton';
+import Spinner from '@/components/atoms/Spinner/Spinner';
 
 type HomePageProps = {
     user?: any;
@@ -50,7 +52,7 @@ const AdminResourcesSuspendedPage: NextPage = ({user}: HomePageProps) => {
                 name: 'Actions',
                 selector: (row: any) => row.actions,
                 cell: (row: any) => <>
-                    <IconButton onClick={() => handleDelete(row)}><EyeIcon/></IconButton>
+                    <LinkIconButton href={`/resources/${row.id}`}><EyeIcon/></LinkIconButton>
                     <IconButton onClick={() => handleAllow(row)}><CheckIcon/></IconButton>
                     <IconButton onClick={() => handleDelete(row)}><TrashIcon/></IconButton>
                 </>,
@@ -91,23 +93,22 @@ const AdminResourcesSuspendedPage: NextPage = ({user}: HomePageProps) => {
     const handleAllow = (row: any) => {
         console.log(row);
         updateStatus(row.id, 'APPROVED')
-            .then(() => setRender(prevState=>prevState+1))
+            .then(() => setRender(prevState => prevState + 1))
     }
 
     const handleDelete = (row: any) => {
         console.log(row);
         updateStatus(row.id, 'INACTIVE')
-            .then(() => setRender(prevState=>prevState+1))
+            .then(() => setRender(prevState => prevState + 1))
     }
-
-    useEffect(() => {
-        fetchResources(1, perPage); // fetch page 1 of users
-    }, [render])
 
     useEffect(() => {
         fetchResources(1, perPage); // fetch page 1 of users
     }, [])
 
+    useEffect(() => {
+        fetchResources(1, perPage); // fetch page 1 of users
+    }, [render])
 
     const handlePerRowsChange = async (newPerPage: number, page: number) => {
         setLoading(true);
@@ -135,13 +136,15 @@ const AdminResourcesSuspendedPage: NextPage = ({user}: HomePageProps) => {
 
     return (
         <DefaultLayout user={user}>
-            <AdminNavBar />
+            <AdminNavBar/>
             <Card>
                 <DataTable
-                    title="Ressources en attente"
+                    title='Ressources en attente'
                     columns={columns}
                     data={data}
-                    progressPending={loading}
+                    highlightOnHover={true}
+                    noDataComponent={<Spinner/>}
+                    progressComponent={<Spinner/>}
                     pagination
                     paginationServer
                     paginationTotalRows={totalRows}

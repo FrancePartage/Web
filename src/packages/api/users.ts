@@ -1,5 +1,5 @@
-import { getHost } from "@/utils/get-host";
-import { getCookie } from "cookies-next";
+import { getHost } from '@/utils/get-host';
+import { getCookie } from 'cookies-next';
 
 export const getUsers = async (page: number, limit: number = 10) => {
 	const requestUrl = `${getHost('users')}?page=${page}&limit=${limit}`;
@@ -180,6 +180,29 @@ export const searchUsers = async (query: string) => {
 		return await response.json();
 	} catch(error) {
 		console.log(error);
+		return null;
+	}
+}
+
+export const updateUserRole = async (userId: number, role: string) => {
+	const requestUrl = getHost(`users/${userId}/role`);
+	const accessToken = getCookie('accessToken');
+
+	try {
+		const response: any = await fetch(requestUrl, {
+			method: 'PATCH',
+			headers: {
+				'Accept': '*/*',
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${accessToken}`
+			},
+			body: JSON.stringify({
+				role: role
+			})
+		});
+
+		return response.status == 200;
+	} catch (error) {
 		return null;
 	}
 }

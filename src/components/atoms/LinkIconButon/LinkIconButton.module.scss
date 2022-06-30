@@ -1,0 +1,15 @@
+@import '../../../styles/variables.scss';
+
+.IconButton {
+  background: transparent;
+  border: 0;
+  color: $cyan;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    opacity: .6;
+  }
+}
