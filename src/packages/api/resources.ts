@@ -170,11 +170,24 @@ export const getResource = async (id: number) => {
     }
 }
 
-export const addComment = async (resourceId: number, content: string) => {
+export const addComment = async (resourceId: number, content: string, parentId: number) => {
     const requestUrl = getHost(`resources/first/${resourceId}/comments`);
     const accessToken = getCookie('accessToken');
 
     try {
+				let body;
+
+				if (parentId != null) {
+					body = JSON.stringify({
+							content: content,
+							parentId: parentId
+					});
+				} else {
+					body = JSON.stringify({
+							content: content
+					});
+				}
+
         const response: any = await fetch(requestUrl, {
             method: 'POST',
             headers: {
@@ -182,9 +195,7 @@ export const addComment = async (resourceId: number, content: string) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
             },
-            body: JSON.stringify({
-                content: content
-            })
+            body: body
         });
 
         return await response.json();

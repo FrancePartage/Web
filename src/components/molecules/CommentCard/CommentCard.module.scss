@@ -96,3 +96,27 @@
 		width: 24px;
 	}
 }
+
+.Footer {
+	margin-top: 16px;
+
+	button {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		cursor: pointer;
+		background: transparent;
+		border: none;
+		transition: .2s;
+
+		&:hover {
+			opacity: .8;
+		}
+	}
+
+	.Icon {
+		width: 24px;
+		height: 24px;
+		fill: $dark-900;
+	}
+}

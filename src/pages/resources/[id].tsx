@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import { isMaybeAuthentificated } from '@/utils/auth';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { addComment, getComments, getResource } from '@/packages/api/resources';
 import ResourceCard from '@/components/molecules/ResourceCard/ResourceCard';
 import Heading2 from '@/components/atoms/Heading2/Heading2';
@@ -14,6 +14,8 @@ import TextAreaInput from '@/components/molecules/TextAreaInput/TextAreaInput';
 import Alert from '@/components/atoms/Alert/Alert';
 import CommentCard from '@/components/molecules/CommentCard/CommentCard';
 import Button from '@/components/atoms/Button/Button';
+import IconButton from '@/components/atoms/IconButton/IconButton';
+import { XIcon } from '@heroicons/react/outline';
 
 type ResourcePageProps = {
 	user?: any;
@@ -28,6 +30,8 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 	const [commentsHasNextPage, setCommentsHasNextPage] = useState(false);
 	const { register, handleSubmit, reset } = useForm();
 	const [error, setError] = useState('');
+	const [parentId, setParentId] = useState<any>(null);
+	const replyRef = useRef<any>(null)
 
 	useEffect(() => {
 		setResource(null);
@@ -72,12 +76,11 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 			return;
 		}
 
-		const response = await addComment(parseInt(id!.toString()), data.comment);
+		const response = await addComment(parseInt(id!.toString()), data.comment, parentId);
 		
 		if (response && !response.statusCode) {
-			const _comments = [...comments];
-			_comments.unshift(response);
-			setComments(_comments);
+			setParentId(null);
+			window.location.reload();
 		}
 
 		reset();
@@ -86,6 +89,15 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 	const handleLoadMore = () => {
 		if (commentsHasNextPage)
 			setCommentsPage(commentsPage + 1);
+	}
+
+	const handleResponse = (commentId: number) => {
+		setParentId(commentId);
+		replyRef.current!.scrollIntoView();
+	}
+
+	const resetParentId = () => {
+		setParentId(null);
 	}
 
 	return (
@@ -101,7 +113,7 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 							<div className={styles.CommentsList}>
 								{ comments.map((comment, index) => {
 									return (
-										<CommentCard key={index} comment={comment} />
+										<CommentCard key={index} comment={comment} user={user} handleReply={() => handleResponse(comment.id)} />
 									)
 								}) }
 							</div>
@@ -116,8 +128,8 @@ const ResourcePage: NextPage = ({ user }: ResourcePageProps) => {
 
 				{
 					user &&
-						<div>
-							<Heading2>Ajouter un commentaire</Heading2>
+						<div ref={replyRef}>
+							<Heading2>{ parentId == null ? "Ajouter un commentaire" : "Réponse au commentaire " + parentId } { parentId != null && <IconButton onClick={resetParentId}><XIcon/></IconButton> }</Heading2>
 
 							{ error !== '' && <><br/><Alert text={error} /></> }
 
