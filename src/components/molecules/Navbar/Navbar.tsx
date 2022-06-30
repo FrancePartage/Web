@@ -91,7 +91,9 @@ const NavBar = ({ user }: NavBarProps) => {
 				<div className={ styles.Content }>
 					<div className={ styles.Left }>
 						<Logo width={ 42 } height={ 42 }/>
+					</div>
 
+					<div className={ styles.Left }>
 						<input type="text" className={ styles.SearchInput }
 							   placeholder="Rechercher des relations, ressources et plus..." value={ search }
 							   onChange={ (e) => setSearch(e.target.value) } onKeyPress={ handleEnterPress }/>

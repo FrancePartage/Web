@@ -82,7 +82,7 @@ const SearchPage = ({ user }: SearchPageProps) => {
 	);
 }
 
-SearchPage.getInitialProps = async (ctx) => {
+SearchPage.getInitialProps = async (ctx: any) => {
 	return isMaybeAuthentificated(ctx);
 }
 

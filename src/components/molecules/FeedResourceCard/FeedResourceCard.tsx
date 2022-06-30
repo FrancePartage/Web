@@ -9,6 +9,7 @@ import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid';
 import { useState } from 'react';
 import { dislikeResource, likeResource } from '@/packages/api/resources';
+import { capitalize } from '@/utils/string-utils';
 
 type FeedResourceCardProps = {
 	resource: any;
@@ -79,7 +80,7 @@ const FeedResourceCard = ({ resource: paramResource, user }: FeedResourceCardPro
 					{ 
 						resource.tags.map((tag: any, index: number) => {
 							return (
-								<div className={styles.Tag} key={index}><Link href={`/resources/tags/${tag}`}><a>{tag}</a></Link></div>
+								<div className={styles.Tag} key={index}><Link href={`/resources/tags/${tag}`}><a>{capitalize(tag)}</a></Link></div>
 							);
 						})
 					}

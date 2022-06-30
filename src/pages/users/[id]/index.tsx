@@ -20,10 +20,10 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 	const [selectedUser, setSelectedUser] = useState(null);
 	const [page, setPage] = useState(1);
 	const [hasNextPage, setHasNextPage] = useState(false);
-	const [resources, setResources] = useState([]);
+	const [resources, setResources] = useState<any>([]);
 
 	const pullResources = async (keepOld: boolean) => {
-		const remoteResources = await getUserResources(id, page);
+		const remoteResources = await getUserResources(parseInt(id!.toString()), page);
 		const _resources = keepOld ? [...resources] : [];
 
 		if (remoteResources) {
@@ -41,7 +41,7 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 			setResources([]);
 			setHasNextPage(false);
 
-			const userInfos = await getUserInformations(id);
+			const userInfos = await getUserInformations(parseInt(id!.toString()));
 			
 			if (userInfos && !userInfos.statusCode) {
 				setSelectedUser(userInfos);
@@ -77,7 +77,7 @@ const UserPage: NextPage = ({ user }: UserPageProps) => {
 			<div>
 					<div className={ styles.Feed }>
 						{
-							resources.map((resource, index) => {
+							resources.map((resource: any, index: number) => {
 								return <FeedResourceCard user={user} resource={resource} key={index} />
 							})
 						}

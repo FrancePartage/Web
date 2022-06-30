@@ -24,7 +24,7 @@ const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 	const [success, setSuccess] = useState('');
 	const [editError, setEditError] = useState('');
 	const [passwordError, setPasswordError] = useState('');
-	const [selectedImage, setSelectedImage] = useState(null);
+	const [selectedImage, setSelectedImage] = useState<any>(null);
 	const [avatar, setAvatar] = useState(user?.avatar);
 
 	const { register: registerEdit, handleSubmit: handleEdit } = useForm({
@@ -137,7 +137,11 @@ const ProfilePage: NextPage = ({ user }: ProfilePageProps) => {
 						type="file"
 						id="select-image"
 						style={ { display: 'none' } }
-						onChange={ e => setSelectedImage(e.target.files[0]) }
+						onChange={ e => { 
+							if (e.target.files!.length > 0) {
+								setSelectedImage(e.target.files![0]) 
+							}
+						}}
 					/>
 
 					<label htmlFor="select-image">
