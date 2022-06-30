@@ -1,0 +1,11 @@
+.SplitContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.CenteredDiv {
+	display: flex;
+	justify-content: center;
+	margin: 1rem 0;
+}

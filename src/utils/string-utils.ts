@@ -19,13 +19,13 @@ export const getRelationString = (relationType: string): string => {
 }
 
 export const resourceStatus = (resourceStatus: string) => {
-    let label = "En attente de validation"
+    let label = 'En attente de validation'
     switch (resourceStatus) {
         case 'APPROVED' :
-            label = "Approuvée"
+            label = 'Approuvée'
             break;
         case 'SUSPENDED':
-            label = "Suspendue"
+            label = 'Suspendue'
             break;
         default:
             break;
@@ -34,16 +34,16 @@ export const resourceStatus = (resourceStatus: string) => {
 }
 
 export const userRole = (userRole: string) => {
-    let label = "Citoyen";
+    let label = 'Citoyen';
     switch (userRole) {
-        case 'MDOERATOR' :
-            label = "Modérateur"
+        case 'MODERATOR' :
+            label = 'Modérateur'
             break;
         case 'ADMIN':
-            label = "Administrateur"
+            label = 'Administrateur'
             break;
         case 'SUPER_ADMIN':
-            label = "Super-Administrateur"
+            label = 'Super-Administrateur'
             break;
         default:
             break;

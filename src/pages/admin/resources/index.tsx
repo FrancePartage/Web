@@ -1,18 +1,20 @@
 import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import AdminNavBar from '@/components/molecules/AdminNavBar/AdminNavBar';
 import Card from '@/components/atoms/Card/Card';
-import DataTable from "react-data-table-component";
-import {useEffect, useState} from "react";
+import DataTable from 'react-data-table-component';
+import {useEffect, useState} from 'react';
 import {getResources, updateStatus} from '@/packages/api/resources';
 import {resourceStatus} from '@/utils/string-utils';
 import moment from 'moment';
 import IconButton from '@/components/atoms/IconButton/IconButton'
-import {CheckIcon, EyeIcon, TrashIcon} from "@heroicons/react/outline";
+import {EyeIcon, TrashIcon} from '@heroicons/react/outline';
 
 
-import {NextPage} from "next";
-import {isMaybeAuthentificated} from "@/utils/auth";
-import {MinusCircleIcon} from "@heroicons/react/solid";
+import {NextPage} from 'next';
+import {isMaybeAuthentificated} from '@/utils/auth';
+import {MinusCircleIcon} from '@heroicons/react/solid';
+import LinkIconButton from '@/components/atoms/LinkIconButon/LinkIconButton';
+import Spinner from '@/components/atoms/Spinner/Spinner';
 
 type HomePageProps = {
     user?: any;
@@ -51,7 +53,7 @@ const AdminResourcesActivePage: NextPage = ({user}: HomePageProps) => {
                 name: 'Actions',
                 selector: row => row.actions,
                 cell: row => <>
-                    <IconButton onClick={() => handleDelete}><EyeIcon/></IconButton>
+                    <LinkIconButton href={`/resources/${row.id}`}><EyeIcon/></LinkIconButton>
                     <IconButton onClick={() => handlePending(row)}><MinusCircleIcon/></IconButton>
                     <IconButton onClick={() => handleDelete(row)}><TrashIcon/></IconButton>
                 </>,
@@ -90,19 +92,23 @@ const AdminResourcesActivePage: NextPage = ({user}: HomePageProps) => {
     };
 
     const handleDelete = (row: any) => {
-        console.log(row);
         updateStatus(row.id, 'INACTIVE')
-            .then(() => setRender(prevState=>prevState+1))
+            .then(() => setRender(prevState => prevState + 1))
     }
+
     const handlePending = (row: any) => {
         console.log(row);
         updateStatus(row.id, 'PENDING')
-            .then(() => setRender(prevState=>prevState+1))
+            .then(() => setRender(prevState => prevState + 1))
     }
+
     useEffect(() => {
         fetchResources(1, perPage); // fetch page 1 of users
-    }, [,render])
+    }, [])
 
+    useEffect(() => {
+        fetchResources(1, perPage); // fetch page 1 of users
+    }, [render])
 
     const handlePerRowsChange = async (newPerPage: number, page: number) => {
         setLoading(true);
@@ -132,10 +138,12 @@ const AdminResourcesActivePage: NextPage = ({user}: HomePageProps) => {
             <AdminNavBar/>
             <Card>
                 <DataTable
-                    title="Ressources actives"
+                    title='Ressources actives'
                     columns={columns}
                     data={data}
-                    progressPending={loading}
+                    highlightOnHover={true}
+                    noDataComponent={<Spinner/>}
+                    progressComponent={<Spinner/>}
                     pagination
                     paginationServer
                     paginationTotalRows={totalRows}

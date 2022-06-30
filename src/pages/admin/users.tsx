@@ -1,17 +1,15 @@
 import DefaultLayout from '@/components/templates/DefaultLayout/DefaultLayout';
 import AdminNavBar from '@/components/molecules/AdminNavBar/AdminNavBar';
 import Card from '@/components/atoms/Card/Card';
-import DataTable from "react-data-table-component";
-import {useEffect, useState} from "react";
-import IconButton from '@/components/atoms/IconButton/IconButton'
-import {CheckIcon,PencilIcon, EyeIcon, TrashIcon} from "@heroicons/react/outline";
+import DataTable from 'react-data-table-component';
+import {useEffect, useState} from 'react';
 import {userRole} from '@/utils/string-utils'
-import {getUsers} from "@/packages/api/users";
-import {MinusCircleIcon} from "@heroicons/react/solid";
+import {getUsers, updateUserRole} from '@/packages/api/users';
 import Select from 'react-select';
 
-import {NextPage} from "next";
-import {isMaybeAuthentificated} from "@/utils/auth";
+import {NextPage} from 'next';
+import {isMaybeAuthentificated} from '@/utils/auth';
+import Spinner from '@/components/atoms/Spinner/Spinner';
 
 type HomePageProps = {
     user?: any;
@@ -24,46 +22,59 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
     const [totalRows, setTotalRows] = useState(0);
     const [perPage, setPerPage] = useState(10);
     const [render, setRender] = useState(0);
-    const [selectedRole, setSelectedRole] = useState('');
 
     const columns =
         [
             {
                 name: 'Id',
-                selector: row => row.id, // accessor is the "key" in the data
+                selector: row => row.id, // accessor is the 'key' in the data
+                sortable: true,
+                allowOverflow: true,
+                grow: 1,
+
             },
             {
                 name: 'Nom',
-                selector: row => row.name, // accessor is the "key" in the data
+                selector: row => row.name, // accessor is the 'key' in the data
+                sortable: true,
+                allowOverflow: true,
+
             },
             {
                 name: 'Prénom',
-                selector: row => row.firstname, // accessor is the "key" in the data
+                selector: row => row.firstname, // accessor is the 'key' in the data
+                sortable: true,
+                allowOverflow: true,
+
             },
             {
                 name: 'Email',
-                selector: row => row.mail, // accessor is the "key" in the data
+                selector: row => row.mail, // accessor is the 'key' in the data
+                sortable: true,
+                allowOverflow: true,
+
             },
             {
                 name: 'Rôle',
-                selector: row => row.role, // accessor is the "key" in the data
+                selector: row => row.role, // accessor is the 'key' in the data
+                sortable: true,
+                allowOverflow: true,
+
             },
             {
                 name: 'Actions',
-                selector: row => row.actions, // accessor is the "key" in the data
-                sortable: true,
+                selector: row => row.actions, // accessor is the 'key' in the data
                 ignoreRowClick: true,
                 allowOverflow: true,
-                button: true,
                 cell: row => <>
                     <Select
+                        placeholder={'Changer de status'}
                         options={options}
-                        onChange={() => {
-                            handleRoleChange(row.id)
+                        onChange={(e) => {
+                            handleRoleChange( row.id ,e)
                         }}
                     />
                 </>,
-
             },
         ];
 
@@ -88,7 +99,7 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
                     firstname: user.firstname,
                     mail: user.email,
                     role: userRole(user.role),
-                   }
+                }
             );
         })
 
@@ -101,14 +112,18 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
         await fetchUsers(page, perPage);
     };
 
-    const handleRoleChange = async (e: any) => {
-        console.log(e)
+    const handleRoleChange = async (id: number, e: any) => {
+        updateUserRole(id, e.value)
+            .then(() => setRender(prevState => prevState + 1))
     };
-
 
     useEffect(() => {
         fetchUsers(1, perPage); // fetch page 1 of users
     }, [])
+
+    useEffect(() => {
+        fetchUsers(1, perPage); // fetch page 1 of users
+    }, [render])
 
     const handlePerRowsChange = async (newPerPage: number, page: number) => {
         setLoading(true);
@@ -120,13 +135,12 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
         res.data.map((user: any) => {
             docs.push(
                 {
-                    id: user._id,
-                    name: user.lastName,
-                    firstname: user.firstName,
+                    id: user.id,
+                    name: user.lastname,
+                    firstname: user.firstname,
                     mail: user.email,
-                    role: userRole(user.roleId),
-                    active: user.active ? "Actif" : "Inactif",
-                   }
+                    role: userRole(user.role),
+                }
             );
         })
 
@@ -141,10 +155,13 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
             <AdminNavBar/>
             <Card>
                 <DataTable
-                    title="Ressources"
+                    title='Utilisateurs'
                     columns={columns}
                     data={data}
-                    progressPending={loading}
+                    highlightOnHover={true}
+                    responsive={false}
+                    noDataComponent={<Spinner/>}
+                    progressComponent={<Spinner/>}
                     pagination
                     paginationServer
                     paginationTotalRows={totalRows}
@@ -153,6 +170,8 @@ const AdminUsersPage: NextPage = ({user}: HomePageProps) => {
                 >
                 </DataTable>
             </Card>
+
+
         </DefaultLayout>
     )
 }
